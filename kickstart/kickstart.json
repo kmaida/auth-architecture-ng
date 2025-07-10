@@ -1,0 +1,238 @@
+{
+  "variables": {
+    "bffTmbApplicationId": "92195b17-8580-4702-9452-37595ae4be7c",
+    "bbocApplicationId": "2b7a2699-a938-4cef-93df-7ac9f52c41ca",
+    "apiKey": "Fu4JjBzduKpokhm6cvUbCc8gtEsVNaYViSdCyFCbN_zT-0-81dZAcXS3",
+    "asymmetricKeyId": "#{UUID()}",
+    "authArchThemeId": "#{UUID()}",
+    "defaultTenantId": "d7d09513-a3f5-401c-9685-34ab6c552453",
+    "adminUserId": "482a4b0d-245f-4d11-9c58-1ed7f3a76104",
+    "adminEmail": "admin@example.com",
+    "adminPassword": "password",
+    "userEmail": "user@example.com",
+    "userPassword": "password",
+    "userUserId": "25a872da-bb44-4af8-a43d-e7bcb5351ebc"
+  },
+  "apiKeys": [
+    {
+      "key": "#{apiKey}",
+      "description": "Unrestricted API key"
+    }
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "url": "/api/key/generate/#{asymmetricKeyId}",
+      "tenantId": "#{defaultTenantId}",
+      "body": {
+        "key": {
+          "algorithm": "RS256",
+          "name": "RS256 Key",
+          "length": 2048
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "url": "api/system-configuration",
+      "body": {
+        "systemConfiguration": {
+          "corsConfiguration": {
+            "allowCredentials": true,
+            "allowedMethods": [
+              "GET",
+              "POST",
+              "OPTIONS"
+            ],
+            "allowedOrigins": [
+              "http://localhost:4001",
+              "http://localhost:5173",
+              "http://localhost:3000",
+              "http://localhost:3001"
+            ],
+            "debug": false,
+            "enabled": true,
+            "preflightMaxAgeInSeconds": 0
+          }
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "url": "/api/tenant/#{defaultTenantId}",
+      "body": {
+        "tenant": {
+          "issuer": "http://localhost:9011"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/application/#{bffTmbApplicationId}",
+      "tenantId": "#{defaultTenantId}",
+      "body": {
+        "application": {
+          "name": "Auth Architecture (BFF & TMB)",
+          "oauthConfiguration": {
+            "authorizedRedirectURLs": [
+              "http://localhost:4001", 
+              "http://localhost:4001/auth/callback",
+              "http://localhost:4200/login/callback"
+            ],
+            "authorizedOriginURLs": [
+              "http://localhost:4001",
+              "http://localhost:4200"
+            ],
+            "clientSecret": "aaMcSA5DEoadbYcFCK7tDshSFQBEiSKDFLipV07PPoE",
+            "logoutURL": "http://localhost:4001/auth/logout/callback",
+            "enabledGrants": [
+              "authorization_code",
+              "refresh_token"
+            ],
+            "proofKeyForCodeExchangePolicy": "Required",
+            "scopeHandlingPolicy": "Compatibility",
+            "debug": true,
+            "generateRefreshTokens": true,
+            "requireRegistration": true
+          },
+          "jwtConfiguration": {
+            "enabled": true,
+            "accessTokenKeyId": "#{asymmetricKeyId}",
+            "idTokenKeyId": "#{asymmetricKeyId}"
+          },
+          "registrationConfiguration": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/application/#{bbocApplicationId}",
+      "tenantId": "#{defaultTenantId}",
+      "body": {
+        "application": {
+          "name": "Auth Architecture (BBOC)",
+          "oauthConfiguration": {
+            "authorizedRedirectURLs": [
+              "http://localhost:4200",
+              "http://localhost:4200/login/callback"
+            ],
+            "authorizedOriginURLs": [
+              "http://localhost:4200"
+            ],
+            "clientSecret": "pYJRT2Wngw-hwd3DFohx8kluoMW9whHpmp4fEfssp8M",
+            "logoutURL": "http://localhost:4200/logout/callback",
+            "enabledGrants": [
+              "authorization_code",
+              "refresh_token"
+            ],
+            "clientAuthenticationPolicy": "NotRequired",
+            "proofKeyForCodeExchangePolicy": "Required",
+            "scopeHandlingPolicy": "Compatibility",
+            "debug": true,
+            "generateRefreshTokens": true,
+            "requireRegistration": true
+          },
+          "jwtConfiguration": {
+            "enabled": true,
+            "accessTokenKeyId": "#{asymmetricKeyId}",
+            "idTokenKeyId": "#{asymmetricKeyId}",
+            "timeToLiveInSeconds": 600,
+            "refreshTokenUsagePolicy": "OneTimeUse"
+          },
+          "registrationConfiguration": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/theme/#{authArchThemeId}",
+      "body": {
+        "sourceThemeId": "75a068fd-e94b-451a-9aeb-3ddb9a3b5987",
+        "theme": {
+          "name": "Auth Architecture Theme"
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "url": "/api/theme/#{authArchThemeId}",
+      "body": {
+        "theme": {
+          "stylesheet": "@{css/styles.css}"
+        }
+      }
+    },
+    {
+      "method": "PATCH",
+      "url": "/api/tenant/#{defaultTenantId}",
+      "body": {
+        "tenant": {
+          "themeId": "#{authArchThemeId}"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration/#{adminUserId}",
+      "body": {
+        "user": {
+          "email": "#{adminEmail}",
+          "password": "#{adminPassword}"
+        },
+        "registration": {
+          "applicationId": "#{FUSIONAUTH_APPLICATION_ID}",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration/#{adminUserId}",
+      "body": {
+        "registration": {
+          "applicationId": "#{bffTmbApplicationId}"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration/#{adminUserId}",
+      "body": {
+        "registration": {
+          "applicationId": "#{bbocApplicationId}"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration/#{userUserId}",
+      "body": {
+        "user": {
+          "birthDate": "1984-01-07",
+          "email": "#{userEmail}",
+          "firstName": "Alice",
+          "lastName": "Roberts",
+          "password": "#{userPassword}"
+        },
+        "registration": {
+          "applicationId": "#{bffTmbApplicationId}"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration/#{userUserId}",
+      "body": {
+        "registration": {
+          "applicationId": "#{bbocApplicationId}"
+        }
+      }
+    }
+  ]
+}
