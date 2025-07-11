@@ -22,16 +22,16 @@ export class LoginCallbackPage {
   readonly loggedIn = this.auth.loggedIn;
 
   constructor() {
-    this.handleCallback();
+    // this.handleCallback();
   }
 
   async handleCallback() {
-    try {
-      await this.auth.fetchAccessToken();
-    } catch (error) {
-      console.error('Authentication failed:', error);
-    }
-    // Redirect to homepage
-    this.router.navigateByUrl('/');
+    // try {
+    //   loggedIn
+    // } catch (error) {
+    //   console.error('Authentication failed:', error);
+    // }
+    // // Redirect to homepage
+    // this.router.navigateByUrl('/');
   }
 }

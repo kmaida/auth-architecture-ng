@@ -37,9 +37,8 @@ export class ProfilePage {
   async fetchUserInfo() {
     try {
       // Fetch the latest access token from the backend
-      const accessToken = await this.auth.preApiTokenFetch();
+      const accessToken = await this.auth.getAccessToken();
       if (accessToken) {
-        this.auth.accessToken.set(accessToken);
         // Fetch user info using the access token
         const userInfo = await fetch(`${this.apiUrl}/auth/userinfo`, {
           headers: {
