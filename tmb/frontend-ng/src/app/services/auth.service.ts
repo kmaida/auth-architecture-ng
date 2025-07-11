@@ -71,7 +71,7 @@ export class AuthService {
       if (!accessToken) throw new Error('No access token available');
       return accessToken;
     } catch (error) {
-      console.error('Error during preApiTokenFetch:', error);
+      console.error('Error fetching access token:', error);
       return null;
     }
   }
