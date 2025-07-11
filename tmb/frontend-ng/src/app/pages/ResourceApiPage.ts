@@ -1,4 +1,4 @@
-import { Component, signal, effect, inject } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
@@ -83,16 +83,18 @@ export class ResourceApiPage {
   private readonly auth = inject(AuthService);
 
   constructor() {
-    effect(() => {
-      this.fetchRecipe();
-    });
+    this.fetchRecipe();
   }
 
   async fetchRecipe() {
     this.loading.set(true);
     this.error.set(null);
-    const accessToken = this.auth.accessToken();
     try {
+      // Fetch the latest access token from the backend
+      const accessToken = await this.auth.updateAccessToken();
+      if (!accessToken) throw new Error('No access token available');
+
+      // Make request to the resource API with the access token
       const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`,

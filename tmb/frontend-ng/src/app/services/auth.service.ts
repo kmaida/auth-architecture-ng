@@ -34,8 +34,9 @@ export class AuthService {
     try {
       const response = await fetch(`${this.apiUrl}/auth/checksession`, {
         credentials: 'include',
+        headers: { 'Accept': 'application/json' }
       });
-      const data = await response.json(); // { loggedIn: boolean, user: object|null }
+      const data = await response.json();
       this.loggedIn.set(data.loggedIn);
       this.loggedIn$.next(data.loggedIn);
       if (data.loggedIn) {
@@ -78,6 +79,27 @@ export class AuthService {
       return null;
     } finally {
       this.isLoading.set(false);
+    }
+  }
+
+  /**
+   * Updates the access token by checking the current session
+   * @returns The updated access token or null if not available
+   */
+  async updateAccessToken(): Promise<string | null> {
+    try {
+      const sessionRes = await fetch(`${this.apiUrl}/auth/checksession`, {
+        credentials: 'include',
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!sessionRes.ok) throw new Error('Unable to check session');
+      const session = await sessionRes.json();
+      const accessToken = session?.at ?? null;
+      this.accessToken.set(accessToken);
+      return accessToken;
+    } catch {
+      this.accessToken.set(null);
+      return null;
     }
   }
 }
