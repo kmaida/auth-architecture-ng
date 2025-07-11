@@ -1,4 +1,4 @@
-import { Component, signal, effect } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 
@@ -30,10 +30,8 @@ export class ProtectedPage {
   protected readonly error = signal<any>(null);
   protected readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
-  constructor() {
-    effect(() => {
-      this.fetchProtectedData();
-    });
+  ngOnInit() {
+    this.fetchProtectedData();
   }
 
   private async fetchProtectedData() {

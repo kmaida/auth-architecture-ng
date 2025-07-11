@@ -28,7 +28,7 @@ export class ProfilePage {
   protected readonly error = signal<any>(null);
   protected readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
-  constructor() {
+  ngOnInit() {
     this.fetchUserInfo();
   }
 

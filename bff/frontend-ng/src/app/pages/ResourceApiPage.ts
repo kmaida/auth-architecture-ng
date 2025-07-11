@@ -80,7 +80,7 @@ export class ResourceApiPage {
   protected readonly loading = signal(false);
   protected readonly apiUrl = environment.apiUrl ?? '';
 
-  constructor() {
+  ngOnInit() {
     this.fetchRecipe();
   }
 

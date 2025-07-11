@@ -26,12 +26,14 @@ export class AuthService {
 
   async checkSession() {
     this.isLoading.set(true);
+    this.isLoading$.next(true);
     try {
       const response = await fetch(`${this.apiUrl}/auth/checksession`, {
         credentials: 'include',
       });
-      const data = await response.json(); // { loggedIn: boolean, user: object|null }
+      const data = await response.json();
       this.loggedIn.set(data.loggedIn);
+      this.loggedIn$.next(data.loggedIn);
       if (data.loggedIn) {
         this.userInfo.set(data.user ?? null);
       } else {
@@ -40,9 +42,11 @@ export class AuthService {
     } catch (error) {
       console.error('Error checking session:', error);
       this.loggedIn.set(false);
+      this.loggedIn$.next(false);
       this.userInfo.set(null);
     } finally {
       this.isLoading.set(false);
+      this.isLoading$.next(false);
     }
   }
 }
