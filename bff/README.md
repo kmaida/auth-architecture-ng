@@ -4,12 +4,12 @@
 
 - [Docker](https://docker.com) (we'll be using `docker compose`) or a Docker Desktop alternative (like [Podman](https://podman.io/) for PC or [Orbstack](https://orbstack.dev/) for Mac)
 - [NodeJS](https://nodejs.org) with npm
-- FusionAuth instance set up via instructions in the [repo root README](https://github.com/kmaida/auth-architecture/blob/main/README.md#fusionauth) and running at `http://localhost:9011` (login: http://localhost:9011/admin)
-- [Resource API server](https://github.com/kmaida/auth-architecture/tree/main/resource-api) running at `http://resource-api.local:5001` (recommended to simulate CORS) or `http://localhost:5001`
+- FusionAuth instance set up via instructions in the [repo root README](https://github.com/kmaida/auth-architecture-ng/blob/main/README.md#fusionauth) and running at `http://localhost:9011` (login: http://localhost:9011/admin)
+- [Resource API server](https://github.com/kmaida/auth-architecture-ng/tree/main/resource-api) running at `http://resource-api.local:5001` (recommended to simulate CORS) or `http://localhost:5001`
 
 ## Backend
 
-1. In your filesystem, open a console in the `auth-architecture/bff/backend` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/bff/backend` folder
 2. Remove the `.sample` suffix from `.env.sample` and make the changes specified in the file
 3. Run `npm install`
 4. Run `npm run dev` to start the server and APIs at `http://localhost:4001`
@@ -18,10 +18,9 @@ This is a set of APIs; it does not have a browser component.
 
 ## Frontend
 
-1. In your filesystem, open a console in the `auth-architecture/bff/frontend` folder
-2. Remove the `.sample` suffix from `.env.sample` (no changes are needed to this sample file)
-3. Run `npm install`
-4. Run `npm run dev` to run the development environment using [Vite](https://vite.dev), accessible in the browser at `http://localhost:5173`
+1. In your filesystem, open a console in the `auth-architecture-ng/bff/frontend` folder
+2. Run `npm install`
+3. Run `npm start` to run the development environment, accessible in the browser at `http://localhost:4200`
 
 If you have the backend and FusionAuth both running, you should be able to log into the frontend app with the admin credentials provided in the FusionAuth installation section.
 
