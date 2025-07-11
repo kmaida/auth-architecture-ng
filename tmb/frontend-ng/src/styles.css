@@ -41,6 +41,9 @@ header {
   justify-content: space-between;
   border-bottom: 1px solid var(--border);
 }
+.header-auth {
+  text-align: center;
+}
 
 /*-- Site Title/Brand styles --*/
 

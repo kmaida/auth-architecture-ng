@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, effect, inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
@@ -31,7 +31,9 @@ export class ProfilePage {
   private readonly auth = inject(AuthService);
 
   constructor() {
-    this.fetchUserInfo();
+    effect(() => {
+      this.fetchUserInfo();
+    });
   }
 
   async fetchUserInfo() {

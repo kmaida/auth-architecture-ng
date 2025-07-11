@@ -1,9 +1,9 @@
-
 import { Routes } from '@angular/router';
 import { HomePage } from './pages/HomePage';
 import { ProtectedPage } from './pages/ProtectedPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { ResourceApiPage } from './pages/ResourceApiPage';
+import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
   {
@@ -15,16 +15,19 @@ export const routes: Routes = [
   {
     path: 'protected',
     component: ProtectedPage,
-    title: 'Protected'
+    title: 'Protected',
+    canActivate: [authGuard]
   },
   {
     path: 'profile',
     component: ProfilePage,
-    title: 'Profile'
+    title: 'Profile',
+    canActivate: [authGuard]
   },
   {
     path: 'call-api',
     component: ResourceApiPage,
-    title: 'Call API'
+    title: 'Call API',
+    canActivate: [authGuard]
   }
 ];

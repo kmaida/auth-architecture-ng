@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
@@ -83,7 +83,9 @@ export class ResourceApiPage {
   private readonly auth = inject(AuthService);
 
   constructor() {
-    this.fetchRecipe();
+    effect(() => {
+      this.fetchRecipe();
+    });
   }
 
   async fetchRecipe() {

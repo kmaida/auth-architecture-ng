@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -7,6 +8,9 @@ export class AuthService {
   readonly userInfo = signal<any>(null);
   readonly isLoading = signal(true);
   private readonly apiUrl = environment.apiUrl ?? '';
+
+  readonly isLoading$ = new BehaviorSubject<boolean>(true);
+  readonly loggedIn$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.checkSession();

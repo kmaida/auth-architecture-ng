@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -7,6 +8,9 @@ export class AuthService {
   readonly userInfo = signal<any>(null);
   readonly isLoading = signal(true);
   readonly accessToken = signal<string | null>(null);
+
+  readonly isLoading$ = new BehaviorSubject<boolean>(true);
+  readonly loggedIn$ = new BehaviorSubject<boolean>(false);
   private readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
   constructor() {
@@ -26,12 +30,14 @@ export class AuthService {
    */
   async checkSession() {
     this.isLoading.set(true);
+    this.isLoading$.next(true);
     try {
       const response = await fetch(`${this.apiUrl}/auth/checksession`, {
         credentials: 'include',
       });
       const data = await response.json(); // { loggedIn: boolean, user: object|null }
       this.loggedIn.set(data.loggedIn);
+      this.loggedIn$.next(data.loggedIn);
       if (data.loggedIn) {
         this.userInfo.set(data.user ?? null);
         await this.fetchAccessToken();
@@ -42,10 +48,12 @@ export class AuthService {
     } catch (error) {
       console.error('Error checking session:', error);
       this.loggedIn.set(false);
+      this.loggedIn$.next(false);
       this.userInfo.set(null);
       this.accessToken.set(null);
     } finally {
       this.isLoading.set(false);
+      this.isLoading$.next(false);
     }
   }
 
