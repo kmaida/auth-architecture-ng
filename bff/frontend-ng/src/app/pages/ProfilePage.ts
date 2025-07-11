@@ -26,7 +26,7 @@ import { environment } from '../../environments/environment';
 export class ProfilePage {
   protected readonly userinfo = signal<any>(null);
   protected readonly error = signal<any>(null);
-  protected readonly apiUrl = environment.apiUrl ?? '';
+  protected readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
   constructor() {
     this.fetchUserInfo();

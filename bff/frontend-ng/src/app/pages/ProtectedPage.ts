@@ -1,5 +1,6 @@
 import { Component, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-protected-page',
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
 export class ProtectedPage {
   protected readonly data = signal<{ message: string } | null>(null);
   protected readonly error = signal<any>(null);
+  protected readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
   constructor() {
     effect(() => {
@@ -37,7 +39,7 @@ export class ProtectedPage {
   private async fetchProtectedData() {
     try {
       this.error.set(null);
-      const res = await fetch('/api/protected-data', {
+      const res = await fetch(`${this.apiUrl}/api/protected-data`, {
         credentials: 'include' // Ensure cookies are sent with the request
       });
       if (!res.ok) throw new Error('Failed to fetch protected data');

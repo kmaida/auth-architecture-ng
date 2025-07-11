@@ -19,10 +19,10 @@ import { AuthService } from '../services/auth.service';
         </div>
       </a>
       <nav class="header-nav">
-        <a routerLink="/" class="nav-link">Home</a>
-        <a *ngIf="loggedIn()" routerLink="/protected" class="nav-link">Protected</a>
-        <a *ngIf="loggedIn()" routerLink="/profile" class="nav-link">Profile</a>
-        <a *ngIf="loggedIn()" routerLink="/call-api" class="nav-link">Call API</a>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
+        <a *ngIf="loggedIn()" routerLink="/protected" routerLinkActive="active" class="nav-link">Protected</a>
+        <a *ngIf="loggedIn()" routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
+        <a *ngIf="loggedIn()" routerLink="/call-api" routerLinkActive="active" class="nav-link">Call API</a>
       </nav>
       <ng-container *ngIf="loggedIn(); else loginBtn">
         <div class="header-auth">
