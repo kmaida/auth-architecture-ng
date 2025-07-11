@@ -7,7 +7,7 @@ export class AuthService {
   readonly userInfo = signal<any>(null);
   readonly isLoading = signal(true);
   readonly accessToken = signal<string | null>(null);
-  private readonly apiUrl = environment.apiUrl ?? '';
+  private readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
   constructor() {
     this.checkSession();
@@ -21,6 +21,9 @@ export class AuthService {
     window.location.href = `${this.apiUrl}/auth/logout`;
   }
 
+  /**
+   * Checks the current session status by making a request to the backend
+   */
   async checkSession() {
     this.isLoading.set(true);
     try {
@@ -47,7 +50,9 @@ export class AuthService {
   }
 
   /**
-   * Fetches the access token from the backend and stores it in the accessToken signal.
+   * Fetches the access token from the backend and stores it in the accessToken signal
+   * This is typically called after a successful login
+   * @returns The access token or null if not available
    */
   async fetchAccessToken(): Promise<string | null> {
     try {

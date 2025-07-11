@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -78,7 +79,8 @@ export class ResourceApiPage {
   protected readonly recipe = signal<any>(null);
   protected readonly error = signal<any>(null);
   protected readonly loading = signal(false);
-  protected readonly apiUrl = environment.apiUrl ?? '';
+  protected readonly resourceApiUrl = environment.resourceApiUrl ?? 'http://resource-api.local:5001';
+  private readonly auth = inject(AuthService);
 
   constructor() {
     this.fetchRecipe();
@@ -87,9 +89,13 @@ export class ResourceApiPage {
   async fetchRecipe() {
     this.loading.set(true);
     this.error.set(null);
+    const accessToken = this.auth.accessToken();
     try {
-      const res = await fetch(`${this.apiUrl}/resource/api/recipe`, {
-        credentials: 'include',
+      const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
       });
       if (!res.ok) throw new Error('Failed to fetch resource API data');
       const result = await res.json();

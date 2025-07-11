@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { ProtectedPage } from './pages/ProtectedPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { ResourceApiPage } from './pages/ResourceApiPage';
+import { LoginCallbackPage } from './pages/LoginCallback';
 
 export const routes: Routes = [
   {
@@ -26,5 +27,9 @@ export const routes: Routes = [
     path: 'call-api',
     component: ResourceApiPage,
     title: 'Call API'
+  },
+  {
+    path: 'login/callback',
+    component: LoginCallbackPage,
   }
 ];

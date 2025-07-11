@@ -22,7 +22,6 @@ import { AuthService } from './services/auth.service';
   styles: [],
 })
 export class App {
-  protected readonly title = signal('frontend-ng');
   protected readonly auth = inject(AuthService);
   protected readonly isLoading = this.auth.isLoading;
 
