@@ -30,32 +30,30 @@ export class ProfilePage {
   private readonly apiUrl = environment.apiUrl ?? '';
   private readonly auth = inject(AuthService);
 
-  constructor() {
-    effect(() => {
-      this.fetchUserInfo();
-    });
+  ngOnInit() {
+    this.fetchUserInfo();
   }
 
   async fetchUserInfo() {
-    const accessToken = this.auth.accessToken();
-    if (!accessToken) {
-      this.error.set(new Error('No access token available'));
-      return;
-    }
     try {
-      const response = await fetch(`${this.apiUrl}/auth/userinfo`, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-      });
-      if (!response.ok) throw new Error('Failed to fetch user info');
-      const data = await response.json();
-      this.userinfo.set(data);
+      // Fetch the latest access token from the backend
+      const accessToken = await this.auth.preApiTokenFetch();
+      if (accessToken) {
+        this.auth.accessToken.set(accessToken);
+        // Fetch user info using the access token
+        const userInfo = await fetch(`${this.apiUrl}/auth/userinfo`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+        });
+        if (!userInfo.ok) throw new Error('Failed to fetch user info');
+        const data = await userInfo.json();
+        this.userinfo.set(data);
+      }
     } catch (err: any) {
       this.error.set(err);
     }
   }
-
 }

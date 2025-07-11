@@ -81,8 +81,9 @@ export class ResourceApiPage {
   protected readonly loading = signal(false);
   protected readonly resourceApiUrl = environment.resourceApiUrl ?? 'http://resource-api.local:5001';
   private readonly auth = inject(AuthService);
+  private readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
-  constructor() {
+  ngOnInit() {
     this.fetchRecipe();
   }
 
@@ -91,19 +92,21 @@ export class ResourceApiPage {
     this.error.set(null);
     try {
       // Fetch the latest access token from the backend
-      const accessToken = await this.auth.updateAccessToken();
-      if (!accessToken) throw new Error('No access token available');
+      const accessToken = await this.auth.preApiTokenFetch();
+      if (accessToken) {
+        this.auth.accessToken.set(accessToken);
 
-      // Make request to the resource API with the access token
-      const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!res.ok) throw new Error('Failed to fetch resource API data');
-      const result = await res.json();
-      this.recipe.set(result);
+        // Make request to the resource API with the access token
+        const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!res.ok) throw new Error('Failed to fetch resource API data');
+        const result = await res.json();
+        this.recipe.set(result);
+      }
     } catch (err: unknown) {
       this.error.set(err);
       this.recipe.set(null);

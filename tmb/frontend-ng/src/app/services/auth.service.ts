@@ -41,7 +41,6 @@ export class AuthService {
       this.loggedIn$.next(data.loggedIn);
       if (data.loggedIn) {
         this.userInfo.set(data.user ?? null);
-        await this.fetchAccessToken();
       } else {
         this.userInfo.set(null);
         this.accessToken.set(null);
@@ -60,7 +59,7 @@ export class AuthService {
 
   /**
    * Fetches the access token from the backend and stores it in the accessToken signal
-   * This is typically called after a successful login
+   * This is called in the login callback (and should not be called anywhere else)
    * @returns The access token or null if not available
    */
   async fetchAccessToken(): Promise<string | null> {
@@ -81,24 +80,26 @@ export class AuthService {
       this.isLoading.set(false);
     }
   }
-
+  
   /**
-   * Updates the access token by checking the current session
-   * @returns The updated access token or null if not available
+   * Prepares the access token before making API calls
+   * This ensures the access token is up-to-date
+   * @returns The access token or null if not available
    */
-  async updateAccessToken(): Promise<string | null> {
+  async preApiTokenFetch(): Promise<string | null> {
     try {
-      const sessionRes = await fetch(`${this.apiUrl}/auth/checksession`, {
+      // Fetch the latest access token from the backend
+      const atRes = await fetch(`${this.apiUrl}/login/callback`, {
         credentials: 'include',
         headers: { 'Accept': 'application/json' }
       });
-      if (!sessionRes.ok) throw new Error('Unable to check session');
-      const session = await sessionRes.json();
-      const accessToken = session?.at ?? null;
-      this.accessToken.set(accessToken);
+      if (!atRes.ok) throw new Error('Unable to get access token');
+      const atJson = await atRes.json();
+      const accessToken = atJson?.at;
+      if (!accessToken) throw new Error('No access token available');
       return accessToken;
-    } catch {
-      this.accessToken.set(null);
+    } catch (error) {
+      console.error('Error during preApiTokenFetch:', error);
       return null;
     }
   }

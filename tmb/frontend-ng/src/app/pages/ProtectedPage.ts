@@ -1,4 +1,4 @@
-import { Component, signal, inject, effect } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
@@ -32,29 +32,29 @@ export class ProtectedPage {
   protected readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
   private readonly auth = inject(AuthService);
 
-  constructor() {
-    effect(() => {
-      this.fetchProtectedData();
-    });
+  ngOnInit() {
+    this.fetchProtectedData();
   }
 
   private async fetchProtectedData() {
-  const accessToken = this.auth.accessToken();
-    if (!accessToken) {
-      this.error.set(new Error('No access token available'));
-      return;
-    }
+    this.error.set(null);
     try {
-      this.error.set(null);
-      const res = await fetch(`${this.apiUrl}/api/protected-data`, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!res.ok) throw new Error('Failed to fetch protected data');
-      const json = await res.json();
-      this.data.set(json);
+      // Fetch the latest access token from the backend
+      const accessToken = await this.auth.preApiTokenFetch();
+      if (accessToken) {
+        this.auth.accessToken.set(accessToken);
+        
+        // Fetch protected data using the access token
+        const res = await fetch(`${this.apiUrl}/api/protected-data`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!res.ok) throw new Error('Failed to fetch protected data');
+        const json = await res.json();
+        this.data.set(json);
+      }
     } catch (err: unknown) {
       this.error.set(err);
       this.data.set(null);
