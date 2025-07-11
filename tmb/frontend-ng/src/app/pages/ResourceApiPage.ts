@@ -92,10 +92,8 @@ export class ResourceApiPage {
     this.error.set(null);
     try {
       // Fetch the latest access token from the backend
-      const accessToken = await this.auth.preApiTokenFetch();
+      const accessToken = await this.auth.getAccessToken();
       if (accessToken) {
-        this.auth.accessToken.set(accessToken);
-
         // Make request to the resource API with the access token
         const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
           headers: {

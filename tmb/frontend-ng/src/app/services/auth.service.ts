@@ -7,7 +7,6 @@ export class AuthService {
   readonly loggedIn = signal(false);
   readonly userInfo = signal<any>(null);
   readonly isLoading = signal(true);
-  readonly accessToken = signal<string | null>(null);
 
   readonly isLoading$ = new BehaviorSubject<boolean>(true);
   readonly loggedIn$ = new BehaviorSubject<boolean>(false);
@@ -43,14 +42,12 @@ export class AuthService {
         this.userInfo.set(data.user ?? null);
       } else {
         this.userInfo.set(null);
-        this.accessToken.set(null);
       }
     } catch (error) {
       console.error('Error checking session:', error);
       this.loggedIn.set(false);
       this.loggedIn$.next(false);
       this.userInfo.set(null);
-      this.accessToken.set(null);
     } finally {
       this.isLoading.set(false);
       this.isLoading$.next(false);
@@ -58,38 +55,13 @@ export class AuthService {
   }
 
   /**
-   * Fetches the access token from the backend and stores it in the accessToken signal
-   * This is called in the login callback (and should not be called anywhere else)
+   * Fetch the access token from the backend only when needed
    * @returns The access token or null if not available
    */
-  async fetchAccessToken(): Promise<string | null> {
-    try {
-      this.isLoading.set(true);
-      const response = await fetch(`${this.apiUrl}/login/callback`, {
-        credentials: 'include',
-      });
-      const data = await response.json(); // { at: 'accessToken' }
-      const at = data.at ?? null;
-      this.accessToken.set(at);
-      return at;
-    } catch (error) {
-      console.error('Error getting access token:', error);
-      this.accessToken.set(null);
-      return null;
-    } finally {
-      this.isLoading.set(false);
-    }
-  }
-  
-  /**
-   * Prepares the access token before making API calls
-   * This ensures the access token is up-to-date
-   * @returns The access token or null if not available
-   */
-  async preApiTokenFetch(): Promise<string | null> {
+  async getAccessToken(): Promise<string | null> {
     try {
       // Fetch the latest access token from the backend
-      const atRes = await fetch(`${this.apiUrl}/login/callback`, {
+      const atRes = await fetch(`${this.apiUrl}/auth/token`, {
         credentials: 'include',
         headers: { 'Accept': 'application/json' }
       });
@@ -99,7 +71,7 @@ export class AuthService {
       if (!accessToken) throw new Error('No access token available');
       return accessToken;
     } catch (error) {
-      console.error('Error during preApiTokenFetch:', error);
+      console.error('Error fetching access token:', error);
       return null;
     }
   }

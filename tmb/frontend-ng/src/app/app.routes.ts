@@ -4,7 +4,6 @@ import { HomePage } from './pages/HomePage';
 import { ProtectedPage } from './pages/ProtectedPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { ResourceApiPage } from './pages/ResourceApiPage';
-import { LoginCallbackPage } from './pages/LoginCallback';
 
 export const routes: Routes = [
   {
@@ -30,9 +29,5 @@ export const routes: Routes = [
     component: ResourceApiPage,
     title: 'Call API',
     canActivate: [authGuard]
-  },
-  {
-    path: 'login/callback',
-    component: LoginCallbackPage,
   }
 ];

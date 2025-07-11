@@ -40,10 +40,8 @@ export class ProtectedPage {
     this.error.set(null);
     try {
       // Fetch the latest access token from the backend
-      const accessToken = await this.auth.preApiTokenFetch();
+      const accessToken = await this.auth.getAccessToken();
       if (accessToken) {
-        this.auth.accessToken.set(accessToken);
-        
         // Fetch protected data using the access token
         const res = await fetch(`${this.apiUrl}/api/protected-data`, {
           headers: {
