@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -26,28 +27,26 @@ import { RouterModule } from '@angular/router';
       <ng-container *ngIf="loggedIn(); else loginBtn">
         <div class="header-auth">
           <p class="header-email">{{ userInfo()?.email }}</p>
-          <button class="btn btn-logout" (click)="initLogout()">Log Out</button>
+          <button class="btn btn-logout" (click)="logout()">Log Out</button>
         </div>
       </ng-container>
       <ng-template #loginBtn>
-        <button class="btn btn-login" (click)="initLogin()">Log In</button>
+        <button class="btn btn-login" (click)="login()">Log In</button>
       </ng-template>
     </header>
   `,
   styles: [],
 })
 export class Header {
-  protected readonly loggedIn = signal(false); // Replace with real auth state
-  protected readonly userInfo = signal<{ email?: string } | null>(null); // Replace with real user info
+  protected readonly auth = inject(AuthService);
+  protected readonly loggedIn = this.auth.loggedIn;
+  protected readonly userInfo = this.auth.userInfo;
 
-  // Replace with real login/logout logic
-  protected initLogin() {
-    this.loggedIn.set(true);
-    this.userInfo.set({ email: 'user@example.com' });
+  login() {
+    this.auth.login();
   }
 
-  protected initLogout() {
-    this.loggedIn.set(false);
-    this.userInfo.set(null);
+  logout() {
+    this.auth.logout();
   }
 }
