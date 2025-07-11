@@ -29,5 +29,10 @@ export const routes: Routes = [
     component: ResourceApiPage,
     title: 'Call API',
     canActivate: [authGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
