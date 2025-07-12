@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif !important;
   color-scheme: dark;
   color: #e5e7eb;
   background-color: #181f2a;
@@ -16,10 +16,12 @@
   --error-color: #ff0000;
   --error-background: #ffe8e8;
 }
+
 body {
   background-color: #181f2a;
   color: var(--main-text-color);
 }
+
 body>main main.page-body {
   padding-top: 5rem !important;
 }
@@ -47,6 +49,7 @@ body>main main.page-body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   letter-spacing: normal !important;
 }
+
 .panel button.button.blue:hover,
 .panel button.button.blue:focus {
   background: var(--primary-dark) !important;
@@ -56,9 +59,11 @@ body>main main.page-body {
   outline: none;
   padding: 0.5em 0.8em !important;
 }
+
 .button.blue i.fa {
   display: none !important;
 }
+
 .secondary-btn,
 main.page-body .row:last-of-type a {
   text-decoration: none;
@@ -70,9 +75,10 @@ main.page-body .row:last-of-type a {
   display: inline-block;
   line-height: normal;
 }
-.panel .form-row.push-top > a,
-.button + a,
-.mt-2 > a {
+
+.panel .form-row.push-top>a,
+.button+a,
+.mt-2>a {
   color: #9e9eff;
   text-align: center;
   display: block;
@@ -87,34 +93,93 @@ main.page-body .row:last-of-type a {
   box-shadow: var(--shadow) !important;
   border-top: none;
   color: #fff !important;
-  padding: 2rem;
+  font-size: 0.85rem !important;
+  line-height: 1.5;
+  padding: 2rem !important;
   text-align: left;
 }
+
 .panel h2 {
   color: #fff !important;
   text-align: center !important;
 }
+
 label {
   color: #fff !important;
 }
+
 .panel>main i.fa.fa-info-circle {
   color: #00cbff !important;
   cursor: pointer;
 }
+
 #locale-select {
   border-radius: .4rem !important;
   color: var(--input-text-color);
 }
+
 #local-select::after {
   color: var(--input-text-color);
 }
 
+/*-- Frontpage --*/
+
+.panel .logo-container+main {
+  font-size: 1rem;
+  font-family: 'Inter',
+    system-ui,
+    Avenir,
+    Helvetica,
+    Arial,
+    sans-serif !important;
+  line-height: 1.5;
+}
+
+.panel .logo-container+main {
+  padding: 0 !important;
+}
+
+.panel .logo-container+main a {
+  color: var(--main-accent-color) !important;
+  text-decoration: none;
+}
+
+.logo-container+main .p-3.pb-5 p {
+  display: none;
+}
+
+.logo-container+main .p-3.pb-5 {
+  padding-bottom: 1rem;
+}
+
+.logo-container+main .p-3.pb-5::before {
+  content: 'Auth Architecture Demo';
+  font-size: 2rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.logo-container+main .p-3.pb-5::after {
+  content: 'To log in, please visit /admin';
+  display: block;
+}
+
+.logo-container+main .p-3.pb-5 div img {
+  display: none;
+}
+
+.panel .logo-container+main ul[style] {
+  display: none !important;
+}
+
 /*-- Hide help bar –*/
 
-body > main {
+body>main {
   padding-top: 0;
 }
-body > main header.app-header {
+
+body>main header.app-header {
   display: none;
 }
 
@@ -123,6 +188,7 @@ body > main header.app-header {
 .panel {
   padding: 2.25rem 2.75rem;
 }
+
 .panel h2,
 fieldset legend,
 legend {
@@ -134,41 +200,53 @@ legend {
   padding: 0;
   border: none;
 }
+
 .panel form .form-row>label:first-of-type {
   text-align: center;
 }
+
 legend {
   border: none;
   width: auto;
 }
+
 form .form-row {
   margin-bottom: 1.25rem;
 }
+
 .form-row:last-of-type {
   text-align: center !important;
 }
+
 label {
   color: var(--main-text-color);
   font-size: 1rem;
   font-weight: 500;
 }
+
 label.radio,
 label.checkbox {
   margin: 1rem 0;
   font-weight: 400;
 }
+
 .input-addon-group,
-.input-addon-group > :last-child:not(.flat),
-.input-addon-group > .input:last-child:not(.flat),
-.input-addon-group > input:last-child:not(.flat) {
-  color: var(--input-text-color); /* overriding typical text color for inputs */
+.input-addon-group> :last-child:not(.flat),
+.input-addon-group>.input:last-child:not(.flat),
+.input-addon-group>input:last-child:not(.flat) {
+  color: var(--input-text-color);
+  /* overriding typical text color for inputs */
 }
+
 .input-addon-group span {
-  display: none; /* Hiding icons on inputs */
+  display: none;
+  /* Hiding icons on inputs */
 }
+
 input::placeholder {
   color: var(--input-text-color);
 }
+
 .input,
 input[type="email"],
 input[type="file"],
@@ -179,8 +257,7 @@ input[type="tel"],
 input[type="url"],
 input[type="password"],
 textarea,
-label.select select
- {
+label.select select {
   background: var(--input-background);
   border: 1px solid var(--border-color) !important;
   border-radius: .25rem !important;
@@ -188,6 +265,7 @@ label.select select
   font-size: 1rem;
   padding: 1em .625em;
 }
+
 input:focus,
 input:active,
 textarea:focus,
@@ -196,10 +274,12 @@ textarea:active {
   box-shadow: none !important;
   transition: border .2s ease-in-out;
 }
+
 .radio input {
   width: 1.3125rem;
   height: 1.3125rem;
 }
+
 .radio span.box,
 .checkbox span.box {
   width: 1.3125rem;
@@ -208,12 +288,15 @@ textarea:active {
   border: solid 1px var(--border-color);
   background-color: var(--input-background);
 }
+
 .radio span.box {
   border-radius: 50%;
 }
-.radio input:checked + span.box {
+
+.radio input:checked+span.box {
   border: 2px solid var(--main-accent-color);
 }
+
 .radio span.box::after {
   box-shadow: none;
   border-radius: 50%;
@@ -223,16 +306,20 @@ textarea:active {
   top: .125rem;
   left: .125rem;
 }
+
 .radio span.box:hover::after {
   opacity: 0;
 }
+
 .radio span.label,
 .checkbox span.label {
   margin-left: .5rem;
 }
+
 .radio-items .form-row label span:last-of-type {
   border-color: var(--border-color);
 }
+
 input[type="radio"] {
   width: 1.3125rem;
   height: 1.3125rem;
@@ -244,11 +331,13 @@ input[type="radio"] {
   -webkit-appearance: none;
   vertical-align: text-bottom;
 }
+
 input[type="radio"]:focus,
 input[type="radio"]:active,
 input[type="radio"]:checked {
   border: 2px solid var(--main-accent-color) !important;
 }
+
 input[type="radio"]:checked:after {
   content: '';
   box-shadow: none;
@@ -260,13 +349,16 @@ input[type="radio"]:checked:after {
   left: .125rem;
   position: absolute;
 }
+
 .checkbox span.box {
   border-radius: .25rem;
 }
-.checkbox input:checked + span.box {
+
+.checkbox input:checked+span.box {
   background: var(--main-accent-color);
   border-color: var(--main-accent-color);
 }
+
 .checkbox span.box::after {
   height: .25rem;
   left: .25rem;
@@ -275,12 +367,14 @@ input[type="radio"]:checked:after {
   width: .625rem;
   box-shadow: none;
 }
+
 .checkbox-list {
   background: transparent;
   border: none;
   box-shadow: none;
   padding-left: 0;
 }
+
 input[type="checkbox"] {
   cursor: pointer;
   width: 1.3125rem;
@@ -293,9 +387,11 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   vertical-align: text-bottom;
 }
+
 input[type="checkbox"]:checked {
   background-color: var(--main-accent-color);
 }
+
 input[type="checkbox"]:checked:after {
   content: '';
   background: transparent;
@@ -310,13 +406,16 @@ input[type="checkbox"]:checked:after {
   display: block;
   position: absolute;
 }
+
 label.select select {
   color: var(--input-text-color);
 }
+
 label.select select option {
   background: var(--input-background);
   color: var(--main-text-color);
 }
+
 label.select:after {
   color: var(--input-text-color) !important;
 }
@@ -327,13 +426,16 @@ body .alert {
   border-radius: 0.4rem;
   color: var(--input-text-color);
 }
+
 body .alert a {
   height: auto;
   width: auto;
 }
+
 body .alert.error a i.fa {
   color: var(--error-color);
 }
+
 body .alert.error {
   border: 1px solid var(--error-color);
   margin: 0 0 2rem 0;
@@ -341,21 +443,26 @@ body .alert.error {
   box-shadow: none;
   border-radius: .25rem;
 }
+
 body .alert .dismiss-button i {
   margin: 0;
 }
+
 .error {
   font-size: .75rem;
   margin: .5em 0;
 }
+
 label.error {
   color: var(--error-color);
   font-size: inherit;
 }
+
 form .form-row span.error {
   color: var(--error-color);
   text-align: left;
 }
+
 input.error {
   background: var(--error-background);
   border-color: var(--error-color) !important;
@@ -369,14 +476,25 @@ input.error {
   color: var(--input-text-color);
   text-align: left;
 }
+
 .tooltip:after {
   border-top-color: var(--tooltip-background);
 }
+
 .tooltip.inverted:before {
   border-bottom-color: var(--tooltip-background);
 }
+
 .fa-info-circle {
   color: var(--main-accent-color) !important;
+}
+
+/*-- Code --*/
+
+.panel .code {
+  background: #000000;
+  border: none;
+  border-radius: 6px;
 }
 
 /*-- FusionAuth footer --*/
@@ -393,387 +511,408 @@ input.error {
 table thead tr th {
   color: var(--main-text-color);
 }
+
 table thead tr {
   border-color: var(--border-color);
 }
+
 #locale-select {
   width: 50%;
   min-width: 10rem;
 }
+
 .grecaptcha-msg {
   margin: 1rem 0;
   text-align: left;
 }
+
 .progress-bar {
   border-radius: .5rem;
   border: 1px solid var(--border-color);
   height: 1rem;
 }
+
 .progress-bar div {
   border-radius: .5rem;
   background: var(--main-accent-color);
   height: 1rem;
 }
+
 hr,
 .hr-container hr {
   border: none;
   height: 1px;
   background-color: #979797;
 }
+
 .hr-container div {
   color: #959595;
   font-size: .75rem;
 }
-.page-body > .row.center:last-of-type {
+
+.page-body>.row.center:last-of-type {
   width: calc(100% - 30px);
   margin: auto;
   justify-content: space-between;
 }
-.page-body > .row.center:last-of-type > div {
+
+.page-body>.row.center:last-of-type>div {
   width: 50%;
   margin: 0;
 }
+
 @media only screen and (max-width: 450px) {
-  .page-body > .row.center:last-of-type {
+  .page-body>.row.center:last-of-type {
     flex-direction: column-reverse;
     align-items: center;
   }
-  .secondary-btn, main.page-body .row:last-of-type a {
+
+  .secondary-btn,
+  main.page-body .row:last-of-type a {
     margin-bottom: 1rem;
   }
-  .page-body > .row.center:last-of-type > div {
+
+  .page-body>.row.center:last-of-type>div {
     text-align: center !important;
   }
 }
+
 @media only screen and (min-width: 768px) {
-  .page-body > .row.center:last-of-type {
+  .page-body>.row.center:last-of-type {
     width: 33rem;
   }
 }
 
 /* Overriding existing grid per page */
-#oauth-register .page-body > .row > .col-xs,
-#oauth-register .page-body > .row > .col-sm-8,
-#oauth-register .page-body > .row > .col-md-6,
-#oauth-register .page-body > .row > .col-lg-5,
-#oauth-register .page-body > .row > .col-xl-4,
-#oauth-authorize .page-body > .row > .col-xs,
-#oauth-authorize .page-body > .row > .col-sm-8,
-#oauth-authorize .page-body > .row > .col-md-6,
-#oauth-authorize .page-body > .row > .col-lg-5,
-#oauth-authorize .page-body > .row > .col-xl-4,
-#oauth-passwordless .page-body > .row > .col-xs,
-#oauth-passwordless .page-body > .row > .col-sm-8,
-#oauth-passwordless .page-body > .row > .col-md-6,
-#oauth-passwordless .page-body > .row > .col-lg-5,
-#oauth-passwordless .page-body > .row > .col-xl-4,
-#oauth-two-factor .page-body > .row > .col-xs,
-#oauth-two-factor .page-body > .row > .col-sm-8,
-#oauth-two-factor .page-body > .row > .col-md-6,
-#oauth-two-factor .page-body > .row > .col-lg-5,
-#oauth-two-factor .page-body > .row > .col-xl-4,
-#oauth-two-factor-methods .page-body > .row > .col-xs,
-#oauth-two-factor-methods .page-body > .row > .col-sm-8,
-#oauth-two-factor-methods .page-body > .row > .col-md-6,
-#oauth-two-factor-methods .page-body > .row > .col-lg-5,
-#oauth-two-factor-methods .page-body > .row > .col-xl-4,
-#oauth-logout .page-body > .row > .col-xs,
-#oauth-logout .page-body > .row > .col-sm-8,
-#oauth-logout .page-body > .row > .col-md-6,
-#oauth-logout .page-body > .row > .col-lg-5,
-#oauth-logout .page-body > .row > .col-xl-4,
-#oauth-device .page-body > .row > .col-xs,
-#oauth-device .page-body > .row > .col-sm-8,
-#oauth-device .page-body > .row > .col-md-6,
-#oauth-device .page-body > .row > .col-lg-5,
-#oauth-device .page-body > .row > .col-xl-4,
-#oauth-device-complete .page-body > .row > .col-xs,
-#oauth-device-complete .page-body > .row > .col-sm-8,
-#oauth-device-complete .page-body > .row > .col-md-6,
-#oauth-device-complete .page-body > .row > .col-lg-5,
-#oauth-device-complete .page-body > .row > .col-xl-4,
-#oauth-complete-reg .page-body > .row > .col-xs,
-#oauth-complete-reg .page-body > .row > .col-sm-8,
-#oauth-complete-reg .page-body > .row > .col-md-6,
-#oauth-complete-reg .page-body > .row > .col-lg-5,
-#oauth-complete-reg .page-body > .row > .col-xl-4,
-#oauth-child-reg .page-body > .row > .col-xs,
-#oauth-child-reg .page-body > .row > .col-sm-8,
-#oauth-child-reg .page-body > .row > .col-md-6,
-#oauth-child-reg .page-body > .row > .col-lg-5,
-#oauth-child-reg .page-body > .row > .col-xl-4,
-#oauth-child-reg-complete .page-body > .row > .col-xs,
-#oauth-child-reg-complete .page-body > .row > .col-sm-8,
-#oauth-child-reg-complete .page-body > .row > .col-md-6,
-#oauth-child-reg-complete .page-body > .row > .col-lg-5,
-#oauth-child-reg-complete .page-body > .row > .col-xl-4,
-#oauth-not-registered .page-body > .row > .col-xs,
-#oauth-not-registered .page-body > .row > .col-sm-8,
-#oauth-not-registered .page-body > .row > .col-md-6,
-#oauth-not-registered .page-body > .row > .col-lg-5,
-#oauth-not-registered .page-body > .row > .col-xl-4,
-#oauth-error .page-body > .row > .col-xs,
-#oauth-error .page-body > .row > .col-sm-8,
-#oauth-error .page-body > .row > .col-md-6,
-#oauth-error .page-body > .row > .col-lg-5,
-#oauth-error .page-body > .row > .col-xl-4,
-#oauthstart-idp-link .page-body > .row > .col-xs,
-#oauthstart-idp-link .page-body > .row > .col-sm-8,
-#oauthstart-idp-link .page-body > .row > .col-md-6,
-#oauthstart-idp-link .page-body > .row > .col-lg-5,
-#oauthstart-idp-link .page-body > .row > .col-xl-4,
-#oauth-wait .page-body > .row > .col-xs,
-#oauth-wait .page-body > .row > .col-sm-8,
-#oauth-wait .page-body > .row > .col-md-6,
-#oauth-wait .page-body > .row > .col-lg-5,
-#oauth-wait .page-body > .row > .col-xl-4,
-#email-verification .page-body > .row > .col-xs,
-#email-verification .page-body > .row > .col-sm-8,
-#email-verification .page-body > .row > .col-md-6,
-#email-verification .page-body > .row > .col-lg-5,
-#email-verification .page-body > .row > .col-xl-4,
-#email-ver-required .page-body > .row > .col-xs,
-#email-ver-required .page-body > .row > .col-sm-8,
-#email-ver-required .page-body > .row > .col-md-6,
-#email-ver-required .page-body > .row > .col-lg-5,
-#email-ver-required .page-body > .row > .col-xl-4,
-#email-ver-complete .page-body > .row > .col-xs,
-#email-ver-complete .page-body > .row > .col-sm-8,
-#email-ver-complete .page-body > .row > .col-md-6,
-#email-ver-complete .page-body > .row > .col-lg-5,
-#email-ver-complete .page-body > .row > .col-xl-4,
-#email-ver-resent .page-body > .row > .col-xs,
-#email-ver-resent .page-body > .row > .col-sm-8,
-#email-ver-resent .page-body > .row > .col-md-6,
-#email-ver-resent .page-body > .row > .col-lg-5,
-#email-ver-resent .page-body > .row > .col-xl-4,
-#forgot-pwd .page-body > .row > .col-xs,
-#forgot-pwd .page-body > .row > .col-sm-8,
-#forgot-pwd .page-body > .row > .col-md-6,
-#forgot-pwd .page-body > .row > .col-lg-5,
-#forgot-pwd .page-body > .row > .col-xl-4,
-#forgot-pwd-sent .page-body > .row > .col-xs,
-#forgot-pwd-sent .page-body > .row > .col-sm-8,
-#forgot-pwd-sent .page-body > .row > .col-md-6,
-#forgot-pwd-sent .page-body > .row > .col-lg-5,
-#forgot-pwd-sent .page-body > .row > .col-xl-4,
-#verify-reg .page-body > .row > .col-xs,
-#verify-reg .page-body > .row > .col-sm-8,
-#verify-reg .page-body > .row > .col-md-6,
-#verify-reg .page-body > .row > .col-lg-5,
-#verify-reg .page-body > .row > .col-xl-4,
-#verify-reg-complete .page-body > .row > .col-xs,
-#verify-reg-complete .page-body > .row > .col-sm-8,
-#verify-reg-complete .page-body > .row > .col-md-6,
-#verify-reg-complete .page-body > .row > .col-lg-5,
-#verify-reg-complete .page-body > .row > .col-xl-4,
-#verify-reg-resent .page-body > .row > .col-xs,
-#verify-reg-resent .page-body > .row > .col-sm-8,
-#verify-reg-resent .page-body > .row > .col-md-6,
-#verify-reg-resent .page-body > .row > .col-lg-5,
-#verify-reg-resent .page-body > .row > .col-xl-4,
-#verify-reg-required .page-body > .row > .col-xs,
-#verify-reg-required .page-body > .row > .col-sm-8,
-#verify-reg-required .page-body > .row > .col-md-6,
-#verify-reg-required .page-body > .row > .col-lg-5,
-#verify-reg-required .page-body > .row > .col-xl-4,
-#acct-2fa-enable .page-body > .row > .col-xs-12,
-#acct-2fa-enable .page-body > .row > .col-sm-12,
-#acct-2fa-enable .page-body > .row > .col-md-10,
-#acct-2fa-enable .page-body > .row > .col-lg-8,
-#acct-2fa-disable .page-body > .row > .col-xs-12,
-#acct-2fa-disable .page-body > .row > .col-sm-12,
-#acct-2fa-disable .page-body > .row > .col-md-10,
-#acct-2fa-disable .page-body > .row > .col-lg-8,
-#unauthorized-page .page-body > .row > .col-sm-10,
-#unauthorized-page .page-body > .row > .col-md-8,
-#unauthorized-page .page-body > .row > .col-lg-7,
-#unauthorized-page .page-body > .row > .col-xl-5,
-#change-pwd .page-body > .row > .col-xs,
-#change-pwd .page-body > .row > .col-sm-8,
-#change-pwd .page-body > .row > .col-md-6,
-#change-pwd .page-body > .row > .col-lg-5,
-#change-pwd .page-body > .row > .col-xl-4,
-#change-pwd-complete .page-body > .row > .col-xs,
-#change-pwd-complete .page-body > .row > .col-sm-8,
-#change-pwd-complete .page-body > .row > .col-md-6,
-#change-pwd-complete .page-body > .row > .col-lg-5,
-#change-pwd-complete .page-body > .row > .col-xl-4 {
+#oauth-register .page-body>.row>.col-xs,
+#oauth-register .page-body>.row>.col-sm-8,
+#oauth-register .page-body>.row>.col-md-6,
+#oauth-register .page-body>.row>.col-lg-5,
+#oauth-register .page-body>.row>.col-xl-4,
+#oauth-authorize .page-body>.row>.col-xs,
+#oauth-authorize .page-body>.row>.col-sm-8,
+#oauth-authorize .page-body>.row>.col-md-6,
+#oauth-authorize .page-body>.row>.col-lg-5,
+#oauth-authorize .page-body>.row>.col-xl-4,
+#oauth-passwordless .page-body>.row>.col-xs,
+#oauth-passwordless .page-body>.row>.col-sm-8,
+#oauth-passwordless .page-body>.row>.col-md-6,
+#oauth-passwordless .page-body>.row>.col-lg-5,
+#oauth-passwordless .page-body>.row>.col-xl-4,
+#oauth-two-factor .page-body>.row>.col-xs,
+#oauth-two-factor .page-body>.row>.col-sm-8,
+#oauth-two-factor .page-body>.row>.col-md-6,
+#oauth-two-factor .page-body>.row>.col-lg-5,
+#oauth-two-factor .page-body>.row>.col-xl-4,
+#oauth-two-factor-methods .page-body>.row>.col-xs,
+#oauth-two-factor-methods .page-body>.row>.col-sm-8,
+#oauth-two-factor-methods .page-body>.row>.col-md-6,
+#oauth-two-factor-methods .page-body>.row>.col-lg-5,
+#oauth-two-factor-methods .page-body>.row>.col-xl-4,
+#oauth-logout .page-body>.row>.col-xs,
+#oauth-logout .page-body>.row>.col-sm-8,
+#oauth-logout .page-body>.row>.col-md-6,
+#oauth-logout .page-body>.row>.col-lg-5,
+#oauth-logout .page-body>.row>.col-xl-4,
+#oauth-device .page-body>.row>.col-xs,
+#oauth-device .page-body>.row>.col-sm-8,
+#oauth-device .page-body>.row>.col-md-6,
+#oauth-device .page-body>.row>.col-lg-5,
+#oauth-device .page-body>.row>.col-xl-4,
+#oauth-device-complete .page-body>.row>.col-xs,
+#oauth-device-complete .page-body>.row>.col-sm-8,
+#oauth-device-complete .page-body>.row>.col-md-6,
+#oauth-device-complete .page-body>.row>.col-lg-5,
+#oauth-device-complete .page-body>.row>.col-xl-4,
+#oauth-complete-reg .page-body>.row>.col-xs,
+#oauth-complete-reg .page-body>.row>.col-sm-8,
+#oauth-complete-reg .page-body>.row>.col-md-6,
+#oauth-complete-reg .page-body>.row>.col-lg-5,
+#oauth-complete-reg .page-body>.row>.col-xl-4,
+#oauth-child-reg .page-body>.row>.col-xs,
+#oauth-child-reg .page-body>.row>.col-sm-8,
+#oauth-child-reg .page-body>.row>.col-md-6,
+#oauth-child-reg .page-body>.row>.col-lg-5,
+#oauth-child-reg .page-body>.row>.col-xl-4,
+#oauth-child-reg-complete .page-body>.row>.col-xs,
+#oauth-child-reg-complete .page-body>.row>.col-sm-8,
+#oauth-child-reg-complete .page-body>.row>.col-md-6,
+#oauth-child-reg-complete .page-body>.row>.col-lg-5,
+#oauth-child-reg-complete .page-body>.row>.col-xl-4,
+#oauth-not-registered .page-body>.row>.col-xs,
+#oauth-not-registered .page-body>.row>.col-sm-8,
+#oauth-not-registered .page-body>.row>.col-md-6,
+#oauth-not-registered .page-body>.row>.col-lg-5,
+#oauth-not-registered .page-body>.row>.col-xl-4,
+#oauth-error .page-body>.row>.col-xs,
+#oauth-error .page-body>.row>.col-sm-8,
+#oauth-error .page-body>.row>.col-md-6,
+#oauth-error .page-body>.row>.col-lg-5,
+#oauth-error .page-body>.row>.col-xl-4,
+#oauthstart-idp-link .page-body>.row>.col-xs,
+#oauthstart-idp-link .page-body>.row>.col-sm-8,
+#oauthstart-idp-link .page-body>.row>.col-md-6,
+#oauthstart-idp-link .page-body>.row>.col-lg-5,
+#oauthstart-idp-link .page-body>.row>.col-xl-4,
+#oauth-wait .page-body>.row>.col-xs,
+#oauth-wait .page-body>.row>.col-sm-8,
+#oauth-wait .page-body>.row>.col-md-6,
+#oauth-wait .page-body>.row>.col-lg-5,
+#oauth-wait .page-body>.row>.col-xl-4,
+#email-verification .page-body>.row>.col-xs,
+#email-verification .page-body>.row>.col-sm-8,
+#email-verification .page-body>.row>.col-md-6,
+#email-verification .page-body>.row>.col-lg-5,
+#email-verification .page-body>.row>.col-xl-4,
+#email-ver-required .page-body>.row>.col-xs,
+#email-ver-required .page-body>.row>.col-sm-8,
+#email-ver-required .page-body>.row>.col-md-6,
+#email-ver-required .page-body>.row>.col-lg-5,
+#email-ver-required .page-body>.row>.col-xl-4,
+#email-ver-complete .page-body>.row>.col-xs,
+#email-ver-complete .page-body>.row>.col-sm-8,
+#email-ver-complete .page-body>.row>.col-md-6,
+#email-ver-complete .page-body>.row>.col-lg-5,
+#email-ver-complete .page-body>.row>.col-xl-4,
+#email-ver-resent .page-body>.row>.col-xs,
+#email-ver-resent .page-body>.row>.col-sm-8,
+#email-ver-resent .page-body>.row>.col-md-6,
+#email-ver-resent .page-body>.row>.col-lg-5,
+#email-ver-resent .page-body>.row>.col-xl-4,
+#forgot-pwd .page-body>.row>.col-xs,
+#forgot-pwd .page-body>.row>.col-sm-8,
+#forgot-pwd .page-body>.row>.col-md-6,
+#forgot-pwd .page-body>.row>.col-lg-5,
+#forgot-pwd .page-body>.row>.col-xl-4,
+#forgot-pwd-sent .page-body>.row>.col-xs,
+#forgot-pwd-sent .page-body>.row>.col-sm-8,
+#forgot-pwd-sent .page-body>.row>.col-md-6,
+#forgot-pwd-sent .page-body>.row>.col-lg-5,
+#forgot-pwd-sent .page-body>.row>.col-xl-4,
+#verify-reg .page-body>.row>.col-xs,
+#verify-reg .page-body>.row>.col-sm-8,
+#verify-reg .page-body>.row>.col-md-6,
+#verify-reg .page-body>.row>.col-lg-5,
+#verify-reg .page-body>.row>.col-xl-4,
+#verify-reg-complete .page-body>.row>.col-xs,
+#verify-reg-complete .page-body>.row>.col-sm-8,
+#verify-reg-complete .page-body>.row>.col-md-6,
+#verify-reg-complete .page-body>.row>.col-lg-5,
+#verify-reg-complete .page-body>.row>.col-xl-4,
+#verify-reg-resent .page-body>.row>.col-xs,
+#verify-reg-resent .page-body>.row>.col-sm-8,
+#verify-reg-resent .page-body>.row>.col-md-6,
+#verify-reg-resent .page-body>.row>.col-lg-5,
+#verify-reg-resent .page-body>.row>.col-xl-4,
+#verify-reg-required .page-body>.row>.col-xs,
+#verify-reg-required .page-body>.row>.col-sm-8,
+#verify-reg-required .page-body>.row>.col-md-6,
+#verify-reg-required .page-body>.row>.col-lg-5,
+#verify-reg-required .page-body>.row>.col-xl-4,
+#acct-2fa-enable .page-body>.row>.col-xs-12,
+#acct-2fa-enable .page-body>.row>.col-sm-12,
+#acct-2fa-enable .page-body>.row>.col-md-10,
+#acct-2fa-enable .page-body>.row>.col-lg-8,
+#acct-2fa-disable .page-body>.row>.col-xs-12,
+#acct-2fa-disable .page-body>.row>.col-sm-12,
+#acct-2fa-disable .page-body>.row>.col-md-10,
+#acct-2fa-disable .page-body>.row>.col-lg-8,
+#unauthorized-page .page-body>.row>.col-sm-10,
+#unauthorized-page .page-body>.row>.col-md-8,
+#unauthorized-page .page-body>.row>.col-lg-7,
+#unauthorized-page .page-body>.row>.col-xl-5,
+#change-pwd .page-body>.row>.col-xs,
+#change-pwd .page-body>.row>.col-sm-8,
+#change-pwd .page-body>.row>.col-md-6,
+#change-pwd .page-body>.row>.col-lg-5,
+#change-pwd .page-body>.row>.col-xl-4,
+#change-pwd-complete .page-body>.row>.col-xs,
+#change-pwd-complete .page-body>.row>.col-sm-8,
+#change-pwd-complete .page-body>.row>.col-md-6,
+#change-pwd-complete .page-body>.row>.col-lg-5,
+#change-pwd-complete .page-body>.row>.col-xl-4 {
   flex-basis: 33rem;
   width: calc(100% - 30px);
   max-width: 33rem;
 }
+
 @media only screen and (max-width: 575px) {
-  #oauth-register .page-body > .row > .col-xs,
-  #oauth-register .page-body > .row > .col-sm-8,
-  #oauth-register .page-body > .row > .col-md-6,
-  #oauth-register .page-body > .row > .col-lg-5,
-  #oauth-register .page-body > .row > .col-xl-4,
-  #oauth-authorize .page-body > .row > .col-xs,
-  #oauth-authorize .page-body > .row > .col-sm-8,
-  #oauth-authorize .page-body > .row > .col-md-6,
-  #oauth-authorize .page-body > .row > .col-lg-5,
-  #oauth-authorize .page-body > .row > .col-xl-4,
-  #oauth-passwordless .page-body > .row > .col-xs,
-  #oauth-passwordless .page-body > .row > .col-sm-8,
-  #oauth-passwordless .page-body > .row > .col-md-6,
-  #oauth-passwordless .page-body > .row > .col-lg-5,
-  #oauth-passwordless .page-body > .row > .col-xl-4,
-  #oauth-two-factor .page-body > .row > .col-xs,
-  #oauth-two-factor .page-body > .row > .col-sm-8,
-  #oauth-two-factor .page-body > .row > .col-md-6,
-  #oauth-two-factor .page-body > .row > .col-lg-5,
-  #oauth-two-factor .page-body > .row > .col-xl-4,
-  #oauth-two-factor-methods .page-body > .row > .col-xs,
-  #oauth-two-factor-methods .page-body > .row > .col-sm-8,
-  #oauth-two-factor-methods .page-body > .row > .col-md-6,
-  #oauth-two-factor-methods .page-body > .row > .col-lg-5,
-  #oauth-two-factor-methods .page-body > .row > .col-xl-4,
-  #oauth-logout .page-body > .row > .col-xs,
-  #oauth-logout .page-body > .row > .col-sm-8,
-  #oauth-logout .page-body > .row > .col-md-6,
-  #oauth-logout .page-body > .row > .col-lg-5,
-  #oauth-logout .page-body > .row > .col-xl-4,
-  #oauth-device .page-body > .row > .col-xs,
-  #oauth-device .page-body > .row > .col-sm-8,
-  #oauth-device .page-body > .row > .col-md-6,
-  #oauth-device .page-body > .row > .col-lg-5,
-  #oauth-device .page-body > .row > .col-xl-4,
-  #oauth-device-complete .page-body > .row > .col-xs,
-  #oauth-device-complete .page-body > .row > .col-sm-8,
-  #oauth-device-complete .page-body > .row > .col-md-6,
-  #oauth-device-complete .page-body > .row > .col-lg-5,
-  #oauth-device-complete .page-body > .row > .col-xl-4,
-  #oauth-complete-reg .page-body > .row > .col-xs,
-  #oauth-complete-reg .page-body > .row > .col-sm-8,
-  #oauth-complete-reg .page-body > .row > .col-md-6,
-  #oauth-complete-reg .page-body > .row > .col-lg-5,
-  #oauth-complete-reg .page-body > .row > .col-xl-4,
-  #oauth-child-reg .page-body > .row > .col-xs,
-  #oauth-child-reg .page-body > .row > .col-sm-8,
-  #oauth-child-reg .page-body > .row > .col-md-6,
-  #oauth-child-reg .page-body > .row > .col-lg-5,
-  #oauth-child-reg .page-body > .row > .col-xl-4,
-  #oauth-child-reg-complete .page-body > .row > .col-xs,
-  #oauth-child-reg-complete .page-body > .row > .col-sm-8,
-  #oauth-child-reg-complete .page-body > .row > .col-md-6,
-  #oauth-child-reg-complete .page-body > .row > .col-lg-5,
-  #oauth-child-reg-complete .page-body > .row > .col-xl-4,
-  #oauth-not-registered .page-body > .row > .col-xs,
-  #oauth-not-registered .page-body > .row > .col-sm-8,
-  #oauth-not-registered .page-body > .row > .col-md-6,
-  #oauth-not-registered .page-body > .row > .col-lg-5,
-  #oauth-not-registered .page-body > .row > .col-xl-4,
-  #oauth-error .page-body > .row > .col-xs,
-  #oauth-error .page-body > .row > .col-sm-8,
-  #oauth-error .page-body > .row > .col-md-6,
-  #oauth-error .page-body > .row > .col-lg-5,
-  #oauth-error .page-body > .row > .col-xl-4,
-  #oauthstart-idp-link .page-body > .row > .col-xs,
-  #oauthstart-idp-link .page-body > .row > .col-sm-8,
-  #oauthstart-idp-link .page-body > .row > .col-md-6,
-  #oauthstart-idp-link .page-body > .row > .col-lg-5,
-  #oauthstart-idp-link .page-body > .row > .col-xl-4,
-  #oauth-wait .page-body > .row > .col-xs,
-  #oauth-wait .page-body > .row > .col-sm-8,
-  #oauth-wait .page-body > .row > .col-md-6,
-  #oauth-wait .page-body > .row > .col-lg-5,
-  #oauth-wait .page-body > .row > .col-xl-4,
-  #email-verification .page-body > .row > .col-xs,
-  #email-verification .page-body > .row > .col-sm-8,
-  #email-verification .page-body > .row > .col-md-6,
-  #email-verification .page-body > .row > .col-lg-5,
-  #email-verification .page-body > .row > .col-xl-4,
-  #email-ver-required .page-body > .row > .col-xs,
-  #email-ver-required .page-body > .row > .col-sm-8,
-  #email-ver-required .page-body > .row > .col-md-6,
-  #email-ver-required .page-body > .row > .col-lg-5,
-  #email-ver-required .page-body > .row > .col-xl-4,
-  #email-ver-complete .page-body > .row > .col-xs,
-  #email-ver-complete .page-body > .row > .col-sm-8,
-  #email-ver-complete .page-body > .row > .col-md-6,
-  #email-ver-complete .page-body > .row > .col-lg-5,
-  #email-ver-complete .page-body > .row > .col-xl-4,
-  #email-ver-resent .page-body > .row > .col-xs,
-  #email-ver-resent .page-body > .row > .col-sm-8,
-  #email-ver-resent .page-body > .row > .col-md-6,
-  #email-ver-resent .page-body > .row > .col-lg-5,
-  #email-ver-resent .page-body > .row > .col-xl-4,
-  #forgot-pwd .page-body > .row > .col-xs,
-  #forgot-pwd .page-body > .row > .col-sm-8,
-  #forgot-pwd .page-body > .row > .col-md-6,
-  #forgot-pwd .page-body > .row > .col-lg-5,
-  #forgot-pwd .page-body > .row > .col-xl-4,
-  #forgot-pwd-sent .page-body > .row > .col-xs,
-  #forgot-pwd-sent .page-body > .row > .col-sm-8,
-  #forgot-pwd-sent .page-body > .row > .col-md-6,
-  #forgot-pwd-sent .page-body > .row > .col-lg-5,
-  #forgot-pwd-sent .page-body > .row > .col-xl-4,
-  #verify-reg .page-body > .row > .col-xs,
-  #verify-reg .page-body > .row > .col-sm-8,
-  #verify-reg .page-body > .row > .col-md-6,
-  #verify-reg .page-body > .row > .col-lg-5,
-  #verify-reg .page-body > .row > .col-xl-4,
-  #verify-reg-complete .page-body > .row > .col-xs,
-  #verify-reg-complete .page-body > .row > .col-sm-8,
-  #verify-reg-complete .page-body > .row > .col-md-6,
-  #verify-reg-complete .page-body > .row > .col-lg-5,
-  #verify-reg-complete .page-body > .row > .col-xl-4,
-  #verify-reg-resent .page-body > .row > .col-xs,
-  #verify-reg-resent .page-body > .row > .col-sm-8,
-  #verify-reg-resent .page-body > .row > .col-md-6,
-  #verify-reg-resent .page-body > .row > .col-lg-5,
-  #verify-reg-resent .page-body > .row > .col-xl-4,
-  #verify-reg-required .page-body > .row > .col-xs,
-  #verify-reg-required .page-body > .row > .col-sm-8,
-  #verify-reg-required .page-body > .row > .col-md-6,
-  #verify-reg-required .page-body > .row > .col-lg-5,
-  #verify-reg-required .page-body > .row > .col-xl-4,
-  #acct-2fa-enable .page-body > .row > .col-xs-12,
-  #acct-2fa-enable .page-body > .row > .col-sm-12,
-  #acct-2fa-enable .page-body > .row > .col-md-10,
-  #acct-2fa-enable .page-body > .row > .col-lg-8,
-  #acct-2fa-disable .page-body > .row > .col-xs-12,
-  #acct-2fa-disable .page-body > .row > .col-sm-12,
-  #acct-2fa-disable .page-body > .row > .col-md-10,
-  #acct-2fa-disable .page-body > .row > .col-lg-8,
-  #unauthorized-page .page-body > .row > .col-sm-10,
-  #unauthorized-page .page-body > .row > .col-md-8,
-  #unauthorized-page .page-body > .row > .col-lg-7,
-  #unauthorized-page .page-body > .row > .col-xl-5,
-  #change-pwd .page-body > .row > .col-xs,
-  #change-pwd .page-body > .row > .col-sm-8,
-  #change-pwd .page-body > .row > .col-md-6,
-  #change-pwd .page-body > .row > .col-lg-5,
-  #change-pwd .page-body > .row > .col-xl-4,
-  #change-pwd-complete .page-body > .row > .col-xs,
-  #change-pwd-complete .page-body > .row > .col-sm-8,
-  #change-pwd-complete .page-body > .row > .col-md-6,
-  #change-pwd-complete .page-body > .row > .col-lg-5,
-  #change-pwd-complete .page-body > .row > .col-xl-4  {
+
+  #oauth-register .page-body>.row>.col-xs,
+  #oauth-register .page-body>.row>.col-sm-8,
+  #oauth-register .page-body>.row>.col-md-6,
+  #oauth-register .page-body>.row>.col-lg-5,
+  #oauth-register .page-body>.row>.col-xl-4,
+  #oauth-authorize .page-body>.row>.col-xs,
+  #oauth-authorize .page-body>.row>.col-sm-8,
+  #oauth-authorize .page-body>.row>.col-md-6,
+  #oauth-authorize .page-body>.row>.col-lg-5,
+  #oauth-authorize .page-body>.row>.col-xl-4,
+  #oauth-passwordless .page-body>.row>.col-xs,
+  #oauth-passwordless .page-body>.row>.col-sm-8,
+  #oauth-passwordless .page-body>.row>.col-md-6,
+  #oauth-passwordless .page-body>.row>.col-lg-5,
+  #oauth-passwordless .page-body>.row>.col-xl-4,
+  #oauth-two-factor .page-body>.row>.col-xs,
+  #oauth-two-factor .page-body>.row>.col-sm-8,
+  #oauth-two-factor .page-body>.row>.col-md-6,
+  #oauth-two-factor .page-body>.row>.col-lg-5,
+  #oauth-two-factor .page-body>.row>.col-xl-4,
+  #oauth-two-factor-methods .page-body>.row>.col-xs,
+  #oauth-two-factor-methods .page-body>.row>.col-sm-8,
+  #oauth-two-factor-methods .page-body>.row>.col-md-6,
+  #oauth-two-factor-methods .page-body>.row>.col-lg-5,
+  #oauth-two-factor-methods .page-body>.row>.col-xl-4,
+  #oauth-logout .page-body>.row>.col-xs,
+  #oauth-logout .page-body>.row>.col-sm-8,
+  #oauth-logout .page-body>.row>.col-md-6,
+  #oauth-logout .page-body>.row>.col-lg-5,
+  #oauth-logout .page-body>.row>.col-xl-4,
+  #oauth-device .page-body>.row>.col-xs,
+  #oauth-device .page-body>.row>.col-sm-8,
+  #oauth-device .page-body>.row>.col-md-6,
+  #oauth-device .page-body>.row>.col-lg-5,
+  #oauth-device .page-body>.row>.col-xl-4,
+  #oauth-device-complete .page-body>.row>.col-xs,
+  #oauth-device-complete .page-body>.row>.col-sm-8,
+  #oauth-device-complete .page-body>.row>.col-md-6,
+  #oauth-device-complete .page-body>.row>.col-lg-5,
+  #oauth-device-complete .page-body>.row>.col-xl-4,
+  #oauth-complete-reg .page-body>.row>.col-xs,
+  #oauth-complete-reg .page-body>.row>.col-sm-8,
+  #oauth-complete-reg .page-body>.row>.col-md-6,
+  #oauth-complete-reg .page-body>.row>.col-lg-5,
+  #oauth-complete-reg .page-body>.row>.col-xl-4,
+  #oauth-child-reg .page-body>.row>.col-xs,
+  #oauth-child-reg .page-body>.row>.col-sm-8,
+  #oauth-child-reg .page-body>.row>.col-md-6,
+  #oauth-child-reg .page-body>.row>.col-lg-5,
+  #oauth-child-reg .page-body>.row>.col-xl-4,
+  #oauth-child-reg-complete .page-body>.row>.col-xs,
+  #oauth-child-reg-complete .page-body>.row>.col-sm-8,
+  #oauth-child-reg-complete .page-body>.row>.col-md-6,
+  #oauth-child-reg-complete .page-body>.row>.col-lg-5,
+  #oauth-child-reg-complete .page-body>.row>.col-xl-4,
+  #oauth-not-registered .page-body>.row>.col-xs,
+  #oauth-not-registered .page-body>.row>.col-sm-8,
+  #oauth-not-registered .page-body>.row>.col-md-6,
+  #oauth-not-registered .page-body>.row>.col-lg-5,
+  #oauth-not-registered .page-body>.row>.col-xl-4,
+  #oauth-error .page-body>.row>.col-xs,
+  #oauth-error .page-body>.row>.col-sm-8,
+  #oauth-error .page-body>.row>.col-md-6,
+  #oauth-error .page-body>.row>.col-lg-5,
+  #oauth-error .page-body>.row>.col-xl-4,
+  #oauthstart-idp-link .page-body>.row>.col-xs,
+  #oauthstart-idp-link .page-body>.row>.col-sm-8,
+  #oauthstart-idp-link .page-body>.row>.col-md-6,
+  #oauthstart-idp-link .page-body>.row>.col-lg-5,
+  #oauthstart-idp-link .page-body>.row>.col-xl-4,
+  #oauth-wait .page-body>.row>.col-xs,
+  #oauth-wait .page-body>.row>.col-sm-8,
+  #oauth-wait .page-body>.row>.col-md-6,
+  #oauth-wait .page-body>.row>.col-lg-5,
+  #oauth-wait .page-body>.row>.col-xl-4,
+  #email-verification .page-body>.row>.col-xs,
+  #email-verification .page-body>.row>.col-sm-8,
+  #email-verification .page-body>.row>.col-md-6,
+  #email-verification .page-body>.row>.col-lg-5,
+  #email-verification .page-body>.row>.col-xl-4,
+  #email-ver-required .page-body>.row>.col-xs,
+  #email-ver-required .page-body>.row>.col-sm-8,
+  #email-ver-required .page-body>.row>.col-md-6,
+  #email-ver-required .page-body>.row>.col-lg-5,
+  #email-ver-required .page-body>.row>.col-xl-4,
+  #email-ver-complete .page-body>.row>.col-xs,
+  #email-ver-complete .page-body>.row>.col-sm-8,
+  #email-ver-complete .page-body>.row>.col-md-6,
+  #email-ver-complete .page-body>.row>.col-lg-5,
+  #email-ver-complete .page-body>.row>.col-xl-4,
+  #email-ver-resent .page-body>.row>.col-xs,
+  #email-ver-resent .page-body>.row>.col-sm-8,
+  #email-ver-resent .page-body>.row>.col-md-6,
+  #email-ver-resent .page-body>.row>.col-lg-5,
+  #email-ver-resent .page-body>.row>.col-xl-4,
+  #forgot-pwd .page-body>.row>.col-xs,
+  #forgot-pwd .page-body>.row>.col-sm-8,
+  #forgot-pwd .page-body>.row>.col-md-6,
+  #forgot-pwd .page-body>.row>.col-lg-5,
+  #forgot-pwd .page-body>.row>.col-xl-4,
+  #forgot-pwd-sent .page-body>.row>.col-xs,
+  #forgot-pwd-sent .page-body>.row>.col-sm-8,
+  #forgot-pwd-sent .page-body>.row>.col-md-6,
+  #forgot-pwd-sent .page-body>.row>.col-lg-5,
+  #forgot-pwd-sent .page-body>.row>.col-xl-4,
+  #verify-reg .page-body>.row>.col-xs,
+  #verify-reg .page-body>.row>.col-sm-8,
+  #verify-reg .page-body>.row>.col-md-6,
+  #verify-reg .page-body>.row>.col-lg-5,
+  #verify-reg .page-body>.row>.col-xl-4,
+  #verify-reg-complete .page-body>.row>.col-xs,
+  #verify-reg-complete .page-body>.row>.col-sm-8,
+  #verify-reg-complete .page-body>.row>.col-md-6,
+  #verify-reg-complete .page-body>.row>.col-lg-5,
+  #verify-reg-complete .page-body>.row>.col-xl-4,
+  #verify-reg-resent .page-body>.row>.col-xs,
+  #verify-reg-resent .page-body>.row>.col-sm-8,
+  #verify-reg-resent .page-body>.row>.col-md-6,
+  #verify-reg-resent .page-body>.row>.col-lg-5,
+  #verify-reg-resent .page-body>.row>.col-xl-4,
+  #verify-reg-required .page-body>.row>.col-xs,
+  #verify-reg-required .page-body>.row>.col-sm-8,
+  #verify-reg-required .page-body>.row>.col-md-6,
+  #verify-reg-required .page-body>.row>.col-lg-5,
+  #verify-reg-required .page-body>.row>.col-xl-4,
+  #acct-2fa-enable .page-body>.row>.col-xs-12,
+  #acct-2fa-enable .page-body>.row>.col-sm-12,
+  #acct-2fa-enable .page-body>.row>.col-md-10,
+  #acct-2fa-enable .page-body>.row>.col-lg-8,
+  #acct-2fa-disable .page-body>.row>.col-xs-12,
+  #acct-2fa-disable .page-body>.row>.col-sm-12,
+  #acct-2fa-disable .page-body>.row>.col-md-10,
+  #acct-2fa-disable .page-body>.row>.col-lg-8,
+  #unauthorized-page .page-body>.row>.col-sm-10,
+  #unauthorized-page .page-body>.row>.col-md-8,
+  #unauthorized-page .page-body>.row>.col-lg-7,
+  #unauthorized-page .page-body>.row>.col-xl-5,
+  #change-pwd .page-body>.row>.col-xs,
+  #change-pwd .page-body>.row>.col-sm-8,
+  #change-pwd .page-body>.row>.col-md-6,
+  #change-pwd .page-body>.row>.col-lg-5,
+  #change-pwd .page-body>.row>.col-xl-4,
+  #change-pwd-complete .page-body>.row>.col-xs,
+  #change-pwd-complete .page-body>.row>.col-sm-8,
+  #change-pwd-complete .page-body>.row>.col-md-6,
+  #change-pwd-complete .page-body>.row>.col-lg-5,
+  #change-pwd-complete .page-body>.row>.col-xl-4 {
     flex-basis: calc(100% - 30px);
     width: calc(100% - 30px);
     max-width: 33rem;
   }
+
   .panel {
     padding-left: .5rem;
     padding-right: .5rem;
   }
 }
+
 @media only screen and (min-width: 768px) {
-  #acct-2fa-index .page-body > .row.center:last-of-type {
+  #acct-2fa-index .page-body>.row.center:last-of-type {
     width: calc(83.33333333% - 30px);
   }
 }
+
 @media only screen and (min-width: 992px) {
-  #acct-2fa-index .page-body > .row > .col-xs12,
-  #acct-2fa-index .page-body > .row > .col-sm-12,
-  #acct-2fa-index .page-body > .row > .col-md-10,
-  #acct-2fa-index .page-body > .row > .col-lg-8 {
+
+  #acct-2fa-index .page-body>.row>.col-xs12,
+  #acct-2fa-index .page-body>.row>.col-sm-12,
+  #acct-2fa-index .page-body>.row>.col-md-10,
+  #acct-2fa-index .page-body>.row>.col-lg-8 {
     flex-basis: 54.125rem;
     max-width: 54.125rem;
   }
-  #acct-2fa-index .page-body > .row.center:last-of-type {
+
+  #acct-2fa-index .page-body>.row.center:last-of-type {
     width: 54.125rem;
   }
 }
@@ -782,23 +921,23 @@ hr,
 
 #verify-reg-required .link.blue-text,
 #verify-reg-required .grecaptcha-msg,
-#verify-reg-required .panel > main > .full fieldset,
+#verify-reg-required .panel>main>.full fieldset,
 #verify-reg .grecaptcha-msg,
-#verify-reg .panel > main > .full fieldset,
+#verify-reg .panel>main>.full fieldset,
 #email-ver-required .grecaptcha-msg,
 #email-verification .grecaptcha-msg,
 #email-ver-required fieldset,
-#email-ver-required .panel > main > #verification-required-resend-code fieldset,
-#oauth-two-factor .panel .full > fieldset,
-#oauth-two-factor .panel > main > fieldset + .form-row,
+#email-ver-required .panel>main>#verification-required-resend-code fieldset,
+#oauth-two-factor .panel .full>fieldset,
+#oauth-two-factor .panel>main>fieldset+.form-row,
 #oauth-two-factor-methods .full,
 #oauth-two-factor-methods .blue.button,
-#oauth-authorize .panel > main > form > .form-row:first-of-type,
-#oauth-passwordless .panel > main > .full > .form-row:first-of-type,
-#oauth-register .panel > main > .full > .form-row:first-of-type,
-#forgot-pwd .panel > main > .full fieldset,
+#oauth-authorize .panel>main>form>.form-row:first-of-type,
+#oauth-passwordless .panel>main>.full>.form-row:first-of-type,
+#oauth-register .panel>main>.full>.form-row:first-of-type,
+#forgot-pwd .panel>main>.full fieldset,
 #forgot-pwd .panel .grecaptcha-msg,
-#change-pwd .panel > main .full > .form-row:first-of-type,
-#acct-2fa-index .panel > main > fieldset {
+#change-pwd .panel>main .full>.form-row:first-of-type,
+#acct-2fa-index .panel>main>fieldset {
   margin-bottom: 0;
 }
