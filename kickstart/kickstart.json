@@ -1,7 +1,7 @@
 {
   "variables": {
     "bffTmbApplicationId": "92195b17-8580-4702-9452-37595ae4be7c",
-    "bbocApplicationId": "2b7a2699-a938-4cef-93df-7ac9f52c41ca",
+    "bbocBffHbApplicationId": "2b7a2699-a938-4cef-93df-7ac9f52c41ca",
     "apiKey": "Fu4JjBzduKpokhm6cvUbCc8gtEsVNaYViSdCyFCbN_zT-0-81dZAcXS3",
     "asymmetricKeyId": "#{UUID()}",
     "authArchThemeId": "#{UUID()}",
@@ -115,15 +115,16 @@
     },
     {
       "method": "POST",
-      "url": "/api/application/#{bbocApplicationId}",
+      "url": "/api/application/#{bbocBffHbApplicationId}",
       "tenantId": "#{defaultTenantId}",
       "body": {
         "application": {
-          "name": "Auth Architecture (BBOC)",
+          "name": "Auth Architecture (BBOC & BFF-HB)",
           "oauthConfiguration": {
             "authorizedRedirectURLs": [
               "http://localhost:4200",
-              "http://localhost:4200/login/callback"
+              "http://localhost:4200/login/callback",
+              "http://localhost:4200/logout/callback"
             ],
             "authorizedOriginURLs": [
               "http://localhost:4200"
