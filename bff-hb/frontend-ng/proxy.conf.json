@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://resource-api.local:5001",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
