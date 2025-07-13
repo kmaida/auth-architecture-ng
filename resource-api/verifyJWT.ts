@@ -37,6 +37,7 @@ const verifyJWT = async (
 ): Promise<void> => {
   const authHeader: string | undefined = req.headers.authorization;
   const tokenFromHeader = authHeader ? authHeader.split(' ')[1] : null;
+  // If no token in header, accept same-site cookies from FusionAuth
   const accessToken = req.cookies['app.at'] || tokenFromHeader;
 
   if (!accessToken) {
