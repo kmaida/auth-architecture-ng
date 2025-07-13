@@ -29,19 +29,15 @@ export class LoginCallback implements OnInit {
     const params = this.route.snapshot.queryParams;
     const code = params['code'];
     const state = params['state'];
-    console.log('LoginCallback: code', code, 'state', state);
     if (!code || !state) {
       this.error = 'Missing authorization code or state.';
       this.loading = false;
       return;
     }
     try {
-      console.log('LoginCallback: exchanging code for token...');
       await this.authService.exchangeCodeForToken(code, state);
-      console.log('LoginCallback: exchange complete, navigating home.');
       this.router.navigate(['/']);
     } catch (err: any) {
-      console.error('LoginCallback: error during exchange', err);
       this.error = err?.message || 'Login failed.';
     } finally {
       this.loading = false;

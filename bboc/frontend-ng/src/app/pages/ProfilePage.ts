@@ -39,7 +39,7 @@ export class ProfilePage {
       const accessToken = this.auth.userToken();
       if (accessToken) {
         // Fetch user info using the access token
-        const userInfo = await fetch(`${this.auth.fusionAuthUrl}/oauth/userinfo`, {
+        const userInfo = await fetch(`${this.auth.fusionAuthUrl}/oauth2/userinfo`, {
           headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json'

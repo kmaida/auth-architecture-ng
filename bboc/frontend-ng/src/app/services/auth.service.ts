@@ -50,7 +50,16 @@ export class AuthService {
   }
 
   logout() {
-    window.location.href = `${this.fusionAuthUrl}/oauth2/logout`;
+    this.setIsLoading(true);
+    try {
+      window.location.href = `${this.fusionAuthUrl}/oauth2/logout?` +
+        `client_id=${this.clientId}` +
+        `&redirect_uri=${encodeURIComponent(`${this.frontendUrl}/logout/callback`)}`;
+    } catch (error) {
+      console.error('Error during logout:', error);
+    } finally {
+      this.setIsLoading(false);
+    }
   }
 
   /**
@@ -173,32 +182,13 @@ export class AuthService {
   }
 
   /**
-   * Log out and redirect to FusionAuth OAuth2 logout endpoint
-   * @throws {Error} - If logout fails
+   * Handle the logout callback by clearing session
    */
-  async fusionAuthLogout() {
-    this.setIsLoading(true);
-    try {
-      window.location.href = `${this.fusionAuthUrl}/oauth2/logout?` +
-        `client_id=${this.clientId}` +
-        `&redirect_uri=${encodeURIComponent(`${this.frontendUrl}/logout/callback`)}`;
-    } catch (error) {
-      console.error('Error during logout:', error);
-    } finally {
-      this.setIsLoading(false);
-    }
-  }
-
-  /**
-   * Handle the logout callback by clearing session and redirecting home
-   */
-  async handleLogoutCallback(router: import('@angular/router').Router): Promise<void> {
+  async handleLogoutCallback(): Promise<void> {
     try {
       this.clearSession();
-      await router.navigate(['/']);
     } catch (error) {
       console.error('Logout failed:', error);
-      await router.navigate(['/']);
     }
   }
 

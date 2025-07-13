@@ -11,16 +11,15 @@ import { AuthService } from '../services/auth.service';
     <header class="header">
       <a routerLink="/" class="site-brand">
         <div class="site-brand-icon">
-          <img src="https://fusionauth.io/img/favicon.png" alt="BFF Auth" />
+          <img src="https://fusionauth.io/img/favicon.png" alt="BBOC Auth" />
         </div>
         <div class="site-brand-text">
-          <span class="site-brand-main">TMB Auth</span>
+          <span class="site-brand-main">BBOC Auth</span>
           <span class="site-brand-sub">Architecture</span>
         </div>
       </a>
       <nav class="header-nav">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
-        <a *ngIf="loggedIn()" routerLink="/protected" routerLinkActive="active" class="nav-link">Protected</a>
         <a *ngIf="loggedIn()" routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
         <a *ngIf="loggedIn()" routerLink="/call-api" routerLinkActive="active" class="nav-link">Call API</a>
       </nav>

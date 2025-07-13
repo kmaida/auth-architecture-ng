@@ -24,7 +24,8 @@ export class LogoutCallback implements OnInit {
 
   async ngOnInit() {
     try {
-      await this.authService.handleLogoutCallback(this.router);
+      this.authService.handleLogoutCallback();
+      await this.router.navigate(['/']);
     } catch (err: any) {
       this.error = err?.message || 'Logout failed.';
     }
