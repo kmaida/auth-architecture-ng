@@ -68,9 +68,15 @@ export class AuthService {
   async checkSession() {
     this.setIsLoading(true);
     try {
+      // Skip session check on callback pages
+      const path = window.location.pathname;
+      if (path === '/logout/callback' || path === '/login/callback') {
+        this.setIsLoading(false);
+        return;
+      }
       // Check if user is already logged in and if not, try to refresh the session
       const storedRefreshToken = sessionStorage.getItem('refresh_token');
-      if (!this.userToken && storedRefreshToken) {
+      if (!this.userToken() && storedRefreshToken) {
         try {
           await this.refreshAccessToken(storedRefreshToken);
         } catch (error) {
@@ -81,12 +87,9 @@ export class AuthService {
       }
     } catch (error) {
       console.error('Error checking session:', error);
-      this.loggedIn.set(false);
-      this.loggedIn$.next(false);
-      this.userInfo.set(null);
+      this.clearSession();
     } finally {
-      this.isLoading.set(false);
-      this.isLoading$.next(false);
+      this.setIsLoading(false);
     }
   }
 
@@ -234,7 +237,6 @@ export class AuthService {
     // Calculate the timestamp when the access token expires based on its expiry length
     const expiresAt = Date.now() + (tokenRes.response.expires_in * 1000);
     sessionStorage.setItem('access_token_expires_at', expiresAt.toString());
-
     // Schedule automatic access token refresh for best user experience
     this.scheduleTokenRefresh(expiresAt);
 
