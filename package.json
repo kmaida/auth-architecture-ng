@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@fusionauth/typescript-client": "^1.57.0"
+  }
+}
