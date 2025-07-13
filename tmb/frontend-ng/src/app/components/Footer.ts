@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <footer>
       <p class="footer-text">
-        <a href="https://github.com/kmaida/auth-architecture-ng/tree/main/bff" target="_blank">BFF</a>&nbsp;<a href="https://github.com/kmaida/auth-architecture-ng" target="_blank">Auth Architecture</a> | <a href="https://maida.kim" target="_blank">Kim Maida</a> for <a href="https://fusionauth.io" target="_blank">FusionAuth</a>
+        <a href="https://github.com/kmaida/auth-architecture-ng/tree/main/tmb" target="_blank">TMB</a>&nbsp;<a href="https://github.com/kmaida/auth-architecture-ng" target="_blank">Auth Architecture</a> | <a href="https://maida.kim" target="_blank">Kim Maida</a> for <a href="https://fusionauth.io" target="_blank">FusionAuth</a>
       </p>
     </footer>
   `,
