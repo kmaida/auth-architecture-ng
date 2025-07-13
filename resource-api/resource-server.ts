@@ -3,6 +3,7 @@ import cors from 'cors';
 import { promisify } from 'util';
 import { lookup } from 'dns';
 import verifyJWT from './verifyJWT';
+import cookieParser from 'cookie-parser';
 import { resourceApi } from './resource-api';
 
 // Extend Express Request interface to include 'user'
@@ -25,7 +26,7 @@ async function getServerURL(): Promise<string> {
   const port = process.env.PORT || 5001;
   const preferredHost = 'resource-api.local';
   const fallbackHost = 'localhost';
-  
+
   try {
     await dnsLookup(preferredHost);
     console.log(`✓ ${preferredHost} is available`);
@@ -53,13 +54,13 @@ app.use((req, res, next) => {
   if (req.path === '/favicon.ico' || req.path.includes('.map')) {
     return next();
   }
-  
+
   // Show different info for preflight vs actual requests
   if (req.method === 'OPTIONS') {
     console.log(`${new Date().toISOString()} - PREFLIGHT ${req.path}`);
   } else {
-    const queryString = req.query && Object.keys(req.query).length 
-      ? ` (query: ${JSON.stringify(req.query)})` 
+    const queryString = req.query && Object.keys(req.query).length
+      ? ` (query: ${JSON.stringify(req.query)})`
       : '';
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}${queryString}`);
   }
@@ -75,8 +76,12 @@ app.use((req, res, next) => {
 // For the sake of simplicity, we allow all origins so you don't
 // have to manage .env synchronization across multiple architecture demos 
 app.use(cors({
-  origin: '*'
+  origin: '*',
+  credentials: true // Allow cookies to be sent with requests
 }));
+
+// Parse cookies and make them available in request
+app.use(cookieParser());
 
 // Set up protected API routes
 resourceApi(app, verifyJWT);
@@ -92,7 +97,7 @@ app.all('*', async (req, res) => {
 // npm run dev
 async function startServer() {
   const serverURL = await getServerURL();
-  
+
   app.listen(port, () => {
     console.log(`Server started at ${serverURL}`);
   });
