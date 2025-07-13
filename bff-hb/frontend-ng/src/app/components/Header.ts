@@ -38,16 +38,16 @@ import { Subscription } from 'rxjs';
   styles: [],
 })
 export class Header {
-  private fusionAuthService: FusionAuthService = inject(FusionAuthService);
+  private auth: FusionAuthService = inject(FusionAuthService);
 
-  isLoggedIn: boolean = this.fusionAuthService.isLoggedIn();
+  isLoggedIn: boolean = this.auth.isLoggedIn();
   userInfo: UserInfo | null = null;
   isGettingUserInfo: boolean = false;
   subscription?: Subscription;
 
   ngOnInit(): void {
     if (this.isLoggedIn) {
-      this.subscription = this.fusionAuthService
+      this.subscription = this.auth
         .getUserInfoObservable({
           onBegin: () => (this.isGettingUserInfo = true),
           onDone: () => (this.isGettingUserInfo = false),
@@ -64,10 +64,10 @@ export class Header {
   }
 
   logout() {
-    this.fusionAuthService.logout();
+    this.auth.logout();
   }
 
   login() {
-    this.fusionAuthService.startLogin();
+    this.auth.startLogin();
   }
 }
