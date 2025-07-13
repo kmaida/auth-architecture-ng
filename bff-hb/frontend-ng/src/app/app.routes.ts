@@ -1,0 +1,31 @@
+import { Routes } from '@angular/router';
+import { authGuard } from './services/auth.guard';
+import { HomePage } from './pages/HomePage';
+import { ProfilePage } from './pages/ProfilePage';
+import { ResourceApiPage } from './pages/ResourceApiPage';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: HomePage,
+    pathMatch: 'full',
+    title: 'Home'
+  },
+  {
+    path: 'profile',
+    component: ProfilePage,
+    title: 'Profile',
+    canActivate: [authGuard]
+  },
+  {
+    path: 'call-api',
+    component: ResourceApiPage,
+    title: 'Call API',
+    canActivate: [authGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
+];
