@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
   template: `
     <section class="profile-page">
       <h1>User Profile</h1>
-      <p>This page uses the <code>angular-sdk</code> to fetch updated profile info. The returned data is a JSON object.</p>
+      <p>This page uses the <code>angular-sdk</code> and subscribes to a profile observable. The returned data is a JSON object.</p>
       @if (error()) {
         <pre class="error">Error: {{ error()?.message }}</pre>
       } @else {

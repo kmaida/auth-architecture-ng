@@ -4,8 +4,8 @@ import { inject } from "@angular/core";
 
 export function authGuard(loggedIn: boolean): CanActivateFn {
   return () => {
-    const fusionAuthService = inject(FusionAuthService);
+    const auth = inject(FusionAuthService);
     const router = inject(Router);
-    return fusionAuthService.isLoggedIn() === loggedIn || router.createUrlTree(['/']);
+    return auth.isLoggedIn() === loggedIn || router.createUrlTree(['/']);
   }
 }
