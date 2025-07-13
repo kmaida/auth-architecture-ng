@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <section class="resource-api-page">
-      <h1>Call an External API</h1>
-      <p>This page makes a secured <code>GET</code> request to the backend to proxy a call to a cross-domain external API. The user must be logged in and have a valid session in an <code>httpOnly</code> cookie to call the appropriate backend endpoint. The backend uses the session to look up the access token, add <code>Authorization: Bearer 'accessToken'</code>, and send the request to the external resource API. The returned data is a randomized, made-up recipe (though you're welcome to try to cook it).</p>
+      <h1>Call a Proxied External API</h1>
+      <p>This page makes a <code>GET</code> request to an external API that has been proxied to <code>/api</code>. A request is made on page load and each time the <code>Get New Recipe</code> button is clicked. The resource server requires authorization, which the request delivers with the <code>app.at</code> cookie set by FusionAuth's hosted backend. The returned data is a randomized, made-up recipe (though you're welcome to try to cook it).</p>
 
       <button
         (click)="fetchRecipe()"
@@ -86,9 +86,8 @@ export class ResourceApiPage {
     this.loading.set(true);
     this.error.set(null);
     try {
-      // Make request to the resource API with the access token
       const res = await fetch(`/api/recipe`, {
-        credentials: 'include', // Include cookies for session
+        credentials: 'include'
       });
       if (!res.ok) throw new Error('Failed to fetch resource API data');
       const result = await res.json();
