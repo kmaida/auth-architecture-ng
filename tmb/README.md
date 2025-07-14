@@ -1,4 +1,4 @@
-# Token-Mediating-Backend Auth Architecture
+# Token-Mediating Backend Auth Architecture
 
 ## Prerequisites
 
@@ -9,7 +9,7 @@
 
 ## Backend
 
-1. In your filesystem, open a console in the `auth-architecture/tmb/backend` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/tmb/backend` folder
 2. Remove the `.sample` suffix from `.env.sample` and make the changes specified in the file
 3. Run `npm install`
 4. Run `npm run dev` to start the server and APIs at `http://localhost:4001`
@@ -18,10 +18,9 @@ This is a set of APIs; it does not have a browser component.
 
 ## Frontend
 
-1. In your filesystem, open a console in the `auth-architecture/tmb/frontend` folder
-2. Remove the `.sample` suffix from `.env.sample` (no changes are needed to this sample file)
-3. Run `npm install`
-4. Run `npm run dev` to run the development environment using [Vite](https://vite.dev), accessible in the browser at `http://localhost:5173`
+1. In your filesystem, open a console in the `auth-architecture-ng/tmb/frontend-ng` folder
+2. Run `npm install`
+3. Run `npm start` to run the development environment, accessible in the browser at `http://localhost:4200`
 
 If you have the backend and FusionAuth both running, you should be able to log into the frontend app with the admin credentials provided in the FusionAuth installation section.
 

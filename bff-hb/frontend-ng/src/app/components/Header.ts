@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
     <header class="header">
       <a routerLink="/" class="site-brand">
         <div class="site-brand-icon">
-          <img src="https://fusionauth.io/img/favicon.png" alt="BBOC Auth" />
+          <img src="https://fusionauth.io/img/favicon.png" alt="BFF-HB Auth" />
         </div>
         <div class="site-brand-text">
           <span class="site-brand-main">BFF-HB Auth</span>

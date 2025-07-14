@@ -18,7 +18,7 @@ This is a set of APIs; it does not have a browser component.
 
 ## Frontend
 
-1. In your filesystem, open a console in the `auth-architecture-ng/bff/frontend` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/bff/frontend-ng` folder
 2. Run `npm install`
 3. Run `npm start` to run the development environment, accessible in the browser at `http://localhost:4200`
 

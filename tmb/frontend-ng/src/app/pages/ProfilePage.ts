@@ -44,8 +44,7 @@ export class ProfilePage {
           headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
-          },
-          credentials: 'include',
+          }
         });
         if (!userInfo.ok) throw new Error('Failed to fetch user info');
         const data = await userInfo.json();

@@ -1,6 +1,6 @@
-# Backend-for-Frontend: Frontend
+# Token-Mediating Backend: Frontend
 
-1. In your filesystem, open a console in the `auth-architecture-ng/bff/frontend` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/tmb/frontend-ng` folder
 2. Run `npm install`
 3. Run `npm start` to run the development environment, accessible in the browser at `http://localhost:4200`
 
