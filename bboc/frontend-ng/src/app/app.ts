@@ -12,10 +12,6 @@ import { CommonModule } from '@angular/common';
     <app-header />
     <div class="container-content">
       <ng-container>
-        <div *ngIf="isLoading()">
-          <h2>Loading...</h2>
-          <p>Checking authentication status...</p>
-        </div>
         <router-outlet />
       </ng-container>
     </div>

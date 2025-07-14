@@ -10,12 +10,7 @@ import { AuthService } from './services/auth.service';
   template: `
     <app-header />
     <div class="container-content">
-      @if (isLoading()) {
-        <h2>Loading...</h2>
-        <p>Checking authentication status...</p>
-      } @else {
-        <router-outlet />
-      }
+      <router-outlet />
     </div>
     <app-footer />
   `,
