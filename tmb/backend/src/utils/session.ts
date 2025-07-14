@@ -1,5 +1,5 @@
 import express from 'express';
-import FusionAuthClient, { User } from "@fusionauth/typescript-client";
+import { User } from "@fusionauth/typescript-client";
 import crypto from 'crypto';
 import { createCache } from 'cache-manager';
 import * as dotenv from "dotenv";
