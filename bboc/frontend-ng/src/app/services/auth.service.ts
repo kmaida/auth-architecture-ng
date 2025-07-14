@@ -19,7 +19,7 @@ export class AuthService {
   readonly clientId = environment.clientId;
   private readonly fusionAuthClient = new FusionAuthClient('', this.fusionAuthUrl);
 
-  // --- Session and timer management ---
+  // Proactive token refresh
   private refreshTimerRef: { current: any } = { current: null };
 
   constructor() {
@@ -264,7 +264,7 @@ export class AuthService {
    */
   clearSession() {
     this.clearRefreshTimer();
-    this.clearAuthStorage();
+    clearAuthStorage();
     this.setUserToken(null);
     this.setUserInfo(null);
     this.setLoggedIn(false);
@@ -290,12 +290,5 @@ export class AuthService {
   setLoggedIn(value: boolean) {
     this.loggedIn.set(value);
     this.loggedIn$.next(value);
-  }
-
-  clearAuthStorage() {
-    sessionStorage.removeItem('refresh_token');
-    sessionStorage.removeItem('id_token');
-    sessionStorage.removeItem('access_token_expires_at');
-    // Add any other session keys you use here
   }
 }

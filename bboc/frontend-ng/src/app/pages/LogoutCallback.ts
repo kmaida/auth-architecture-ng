@@ -7,12 +7,7 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-logout-callback',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="logout-callback">
-      <h2>Logging you out...</h2>
-      <p *ngIf="error" class="error">{{ error }}</p>
-    </div>
-  `
+  template: ``
 })
 export class LogoutCallback implements OnInit {
   error: string | null = null;
@@ -25,7 +20,7 @@ export class LogoutCallback implements OnInit {
   async ngOnInit() {
     try {
       this.authService.handleLogoutCallback();
-      await this.router.navigate(['/']);
+      await this.router.navigate(['/'], { replaceUrl: true });
     } catch (err: any) {
       this.error = err?.message || 'Logout failed.';
     }

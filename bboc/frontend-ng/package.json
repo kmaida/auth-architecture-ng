@@ -1,6 +1,6 @@
 {
-  "name": "frontend-ng",
-  "version": "0.0.0",
+  "name": "fusionauth-bboc-frontend-ng",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,6 +25,7 @@
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "@fusionauth/typescript-client": "^1.57.0",
     "pkce-challenge": "^5.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

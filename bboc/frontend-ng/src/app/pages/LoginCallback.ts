@@ -7,13 +7,7 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-login-callback',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="login-callback">
-      <h2 *ngIf="loading">Logging you in...</h2>
-      <h2 *ngIf="!loading && !error">Login complete!</h2>
-      <p *ngIf="error" class="error">{{ error }}</p>
-    </div>
-  `
+  template: ``
 })
 export class LoginCallback implements OnInit {
   error: string | null = null;
@@ -36,7 +30,7 @@ export class LoginCallback implements OnInit {
     }
     try {
       await this.authService.exchangeCodeForToken(code, state);
-      this.router.navigate(['/']);
+      this.router.navigate(['/'], { replaceUrl: true });
     } catch (err: any) {
       this.error = err?.message || 'Login failed.';
     } finally {
