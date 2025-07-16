@@ -76,7 +76,7 @@ import {Component} from '@angular/core';
         ...a <code>code_verifier</code> and a hash of the code verifier called a <code>code_challenge</code>, which is created by hashing the verifier with a function called a <code>code_challenge_method</code>
       </li>
       <li>
-        Backend sets an <code>httpOnly</code> PKCE cookie with the <code>state</code>, <code>code_verifier</code>, and <code>code_challenge</code>
+        Backend sets an <code>httpOnly</code> PKCE cookie with the <code>state</code>, <code>code_verifier</code>, and <code>code_challenge</code> to tie this login attempt to this user (a backend user session is not created until after successful login)
       </li>
       <li>
         Backend returns a response informing the frontend that the user is not authenticated
@@ -113,9 +113,6 @@ import {Component} from '@angular/core';
       </li>
       <li>
         Backend sets an <code>httpOnly</code> cookie for the user's session ID (this only contains the session ID, never tokens)
-      </li>
-      <li>
-        Backend sets the <code>userInfo</code> in a cookie that is public to the frontend (note: this cookie is not actually read in this demo, but it's common practice to store user information in a cookie or ID token in the frontend)
       </li>
       <li>
         Backend <code>/auth/callback</code> redirects to the frontend
