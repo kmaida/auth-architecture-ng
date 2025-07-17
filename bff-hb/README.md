@@ -1,8 +1,10 @@
 # Backend-for-Frontend with FusionAuth Hosted Backend Auth Architecture
 
+This is a demo of an architecture with an auth Backend-for-Frontend and a Single-Page App. This is a serverless architecture; there is no backend and the frontend directly interacts with the authorization server ([FusionAuth](https://fusionauth.io/ "https://fusionauth.io/")).
+
 ## Architecture Overview
 
--   **Frontend:** [React](https://react.dev/ "https://react.dev") app with Authorization Code flow with PKCE authentication and session management using [FusionAuth](https://fusionauth.io/ "https://fusionauth.io/") and the [Angular SDK](https://github.com/FusionAuth/fusionauth-javascript-sdk/tree/main/packages/sdk-angular "https://github.com/FusionAuth/fusionauth-javascript-sdk/tree/main/packages/sdk-angular") (which uses the [FusionAuth Hosted Backend](https://fusionauth.io/docs/apis/hosted-backend "https://fusionauth.io/docs/apis/hosted-backend"))
+-   **Frontend:** [Angular](https://angular.dev/ "https://angular.dev") app with Authorization Code flow with PKCE authentication and session management using [FusionAuth](https://fusionauth.io/ "https://fusionauth.io/") and the [Angular SDK](https://github.com/FusionAuth/fusionauth-javascript-sdk/tree/main/packages/sdk-angular "https://github.com/FusionAuth/fusionauth-javascript-sdk/tree/main/packages/sdk-angular") (which uses the [FusionAuth Hosted Backend](https://fusionauth.io/docs/apis/hosted-backend "https://fusionauth.io/docs/apis/hosted-backend"))
 -   **Authorization server:** Self-hosted [FusionAuth](https://fusionauth.io/ "https://fusionauth.io/") running in a Docker container
 -   **Proxied resource server:** an external API that requires authorization, called from the frontend using a proxy to support cookies (all three architectures use this same resource server)
 
