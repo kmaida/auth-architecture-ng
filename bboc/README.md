@@ -26,12 +26,12 @@ This is a demo of the Browser-based OAuth 2.0 Client architecture pattern, speci
 
 - [Docker](https://docker.com) (we'll be using `docker compose`) or a Docker Desktop alternative (like [Podman](https://podman.io/) for PC or [Orbstack](https://orbstack.dev/) for Mac)
 - [NodeJS](https://nodejs.org) with npm
-- FusionAuth instance set up via instructions in the [repo root README](https://github.com/kmaida/auth-architecture/blob/main/README.md#fusionauth) and running at `http://localhost:9011` (login: http://localhost:9011/admin)
-- [Resource API server](https://github.com/kmaida/auth-architecture/tree/main/resource-api) running at `http://resource-api.local:5001` (recommended to simulate CORS) or `http://localhost:5001`
+- FusionAuth instance set up via instructions in the [repo root README](https://github.com/kmaida/auth-architecture-ng/blob/main/README.md#fusionauth) and running at `http://localhost:9011` (login: http://localhost:9011/admin)
+- [Resource API server](https://github.com/kmaida/auth-architecture-ng/tree/main/resource-api) running at `http://resource-api.local:5001` (recommended to simulate CORS) or `http://localhost:5001`
 
 ### Frontend
 
-1. In your filesystem, open a console in the `auth-architecture/bboc/frontend-ng` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/bboc/frontend-ng` folder
 2. Run `npm install`
 3. Run `npm run dev` to run the development environment, accessible in the browser at `http://localhost:4200`
 

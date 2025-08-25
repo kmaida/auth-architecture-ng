@@ -6,7 +6,7 @@ The API only has one endpoint (`/api/recipe`) which is secured with `Authorizati
 
 ## Installation
 
-1. In your filesystem, open a console in the `auth-architecture/resource-api` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/resource-api` folder
 2. Remove the `.sample` suffix from `.env.sample` and make the changes specified in the file
 3. Run `npm install`
 4. Run `npm run dev` to start the resource server

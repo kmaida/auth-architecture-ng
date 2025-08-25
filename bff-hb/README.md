@@ -21,12 +21,12 @@ This is a demo of an architecture with a hosted auth Backend-for-Frontend and a 
 
 - [Docker](https://docker.com) (we'll be using `docker compose`) or a Docker Desktop alternative (like [Podman](https://podman.io/) for PC or [Orbstack](https://orbstack.dev/) for Mac)
 - [NodeJS](https://nodejs.org) with npm
-- FusionAuth instance set up via instructions in the [repo root README](https://github.com/kmaida/auth-architecture/blob/main/README.md#fusionauth) and running at `http://localhost:9011` (login: http://localhost:9011/admin)
-- [Resource API server](https://github.com/kmaida/auth-architecture/tree/main/resource-api) running at `http://resource-api.local:5001` (recommended to simulate CORS) or `http://localhost:5001`
+- FusionAuth instance set up via instructions in the [repo root README](https://github.com/kmaida/auth-architecture-ng/blob/main/README.md#fusionauth) and running at `http://localhost:9011` (login: http://localhost:9011/admin)
+- [Resource API server](https://github.com/kmaida/auth-architecture-ng/tree/main/resource-api) running at `http://resource-api.local:5001` (recommended to simulate CORS) or `http://localhost:5001`
 
 ### Frontend
 
-1. In your filesystem, open a console in the `auth-architecture/bff-hb/frontend-ng` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/bff-hb/frontend-ng` folder
 2. Run `npm install`
 3. Run `npm start` to run the development environment using the Angular CLI, accessible in the browser at `http://localhost:4200`
 

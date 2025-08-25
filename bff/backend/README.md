@@ -1,6 +1,6 @@
 # Backend-for-Frontend: Backend
 
-1. In your filesystem, open a console in the `auth-architecture/bff/backend` folder
+1. In your filesystem, open a console in the `auth-architecture-ng/bff/backend` folder
 2. Remove the `.sample` suffix from `.env.sample` and make the changes specified in the file
 3. Run `npm install`
 4. Run `npm run dev` to start the server and APIs at `http://localhost:4001`
