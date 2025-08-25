@@ -2,11 +2,11 @@
 
 This repo contains a set of apps demonstrating different auth architectures, a resource API server, and a <a href="https://fusionauth.io">FusionAuth</a> Docker container with configuration (called a `kickstart`).
 
-- Backend-for-Frontend (BFF) [spec](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-backend-for-frontend-bff)
-- Token-Mediating Backend (TMB) [spec](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-token-mediating-backend)
-- Browser-based OAuth 2.0 client (BBOC) [spec](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-browser-based-oauth-20-clie)
-- Backend-for-Frontend (BFF) with [FusionAuth hosted backend](https://fusionauth.io/docs/apis/hosted-backend)
-- Resource API server
+- [Backend-for-Frontend](https://github.com/kmaida/auth-architecture-ng/tree/main/bff) (BFF) [spec](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-backend-for-frontend-bff)
+- [Token-Mediating Backend](https://github.com/kmaida/auth-architecture-ng/tree/main/tmb) (TMB) [spec](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-token-mediating-backend)
+- [Browser-based OAuth 2.0 client](https://github.com/kmaida/auth-architecture-ng/tree/main/bboc) (BBOC) [spec](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#name-browser-based-oauth-20-clie)
+- [Backend-for-Frontend with Hosted Backend](https://github.com/kmaida/auth-architecture-ng/tree/main/bff-hb) (BFF-HB) [FusionAuth hosted backend](https://fusionauth.io/docs/apis/hosted-backend)
+- [Resource API server](https://github.com/kmaida/auth-architecture-ng/tree/main/resource-api)
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ This repo contains a set of apps demonstrating different auth architectures, a r
 
 1. Clone this repo
 2. Remove the `.sample` suffix from `.env.sample` (and make the changes mentioned in the file)
-3. From the cloned `auth-architecture` root folder, run: `docker compose up -d`
+3. From the cloned `auth-architecture-ng` root folder, run: `docker compose up -d`
 4. FusionAuth will be installed in a Docker container and will use the included `kickstart.json` to set the appropriate FusionAuth configuration for use with this repo
 5. Verify that FusionAuth is installed and configured properly by navigating to `http://localhost:9011/admin`
 6. If you get a login screen at `http://localhost:9011/admin`, the kickstart was successful
