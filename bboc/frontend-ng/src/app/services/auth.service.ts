@@ -20,10 +20,10 @@ export class AuthService {
   private readonly fusionAuthClient = new FusionAuthClient('', this.fusionAuthUrl);
 
   // Refresh token (stored in memory only; not exposed anywhere outside the auth service)
-  private refreshTokenRef: { current: any } = { current: null };
+  private readonly refreshTokenRef: { current: any } = { current: null };
 
   // Proactive token refresh
-  private refreshTimerRef: { current: any } = { current: null };
+  private readonly refreshTimerRef: { current: any } = { current: null };
   private readonly accessTokenExpiresAtRef: { current: number | null } = { current: null };
 
   async login() {
