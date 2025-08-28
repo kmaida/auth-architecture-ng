@@ -19,16 +19,12 @@ export class AuthService {
   readonly clientId = environment.clientId;
   private readonly fusionAuthClient = new FusionAuthClient('', this.fusionAuthUrl);
 
+  // Refresh token (stored in memory only; not exposed anywhere outside the auth service)
+  private refreshTokenRef: { current: any } = { current: null };
+
   // Proactive token refresh
   private refreshTimerRef: { current: any } = { current: null };
-
-  constructor() {
-    // Only run checkSession if not on login or logout callback pages
-    const path = window.location.pathname;
-    if (path !== '/logout/callback' && path !== '/login/callback') {
-      this.checkSession();
-    }
-  }
+  private readonly accessTokenExpiresAtRef: { current: number | null } = { current: null };
 
   async login() {
     try {
@@ -57,37 +53,6 @@ export class AuthService {
         `&redirect_uri=${encodeURIComponent(`${this.frontendUrl}/logout/callback`)}`;
     } catch (error) {
       console.error('Error during logout:', error);
-    } finally {
-      this.setIsLoading(false);
-    }
-  }
-
-  /**
-   * Checks the current session status by making a request to the backend
-   */
-  async checkSession() {
-    this.setIsLoading(true);
-    try {
-      // Skip session check on callback pages
-      const path = window.location.pathname;
-      if (path === '/logout/callback' || path === '/login/callback') {
-        this.setIsLoading(false);
-        return;
-      }
-      // Check if user is already logged in and if not, try to refresh the session
-      const storedRefreshToken = sessionStorage.getItem('refresh_token');
-      if (!this.userToken() && storedRefreshToken) {
-        try {
-          await this.refreshAccessToken(storedRefreshToken);
-        } catch (error) {
-          console.error('Failed to refresh token:', error);
-          this.clearSession();
-          return;
-        }
-      }
-    } catch (error) {
-      console.error('Error checking session:', error);
-      this.clearSession();
     } finally {
       this.setIsLoading(false);
     }
@@ -218,7 +183,7 @@ export class AuthService {
     // Refresh 1 minute before expiry, but never less than 0
     const refreshIn = Math.max(expiresAt - now - 60000, 0);
     this.refreshTimerRef.current = setTimeout(async () => {
-      const refreshToken = sessionStorage.getItem('refresh_token');
+      const refreshToken = this.refreshTokenRef.current;
       if (refreshToken) {
         await this.refreshAccessToken(refreshToken);
       }
@@ -232,11 +197,10 @@ export class AuthService {
   async tokensSuccess(tokenRes: any) {
     const { access_token, refresh_token, id_token } = tokenRes.response;
     this.setUserToken(access_token);
-    sessionStorage.setItem('refresh_token', refresh_token);
-    sessionStorage.setItem('id_token', id_token);
+    this.refreshTokenRef.current = refresh_token;
     // Calculate the timestamp when the access token expires based on its expiry length
     const expiresAt = Date.now() + (tokenRes.response.expires_in * 1000);
-    sessionStorage.setItem('access_token_expires_at', expiresAt.toString());
+    this.accessTokenExpiresAtRef.current = expiresAt;
     // Schedule automatic access token refresh for best user experience
     this.scheduleTokenRefresh(expiresAt);
 
@@ -254,6 +218,7 @@ export class AuthService {
     console.log('Authentication successful:', {
       userInfo,
       accessToken: access_token,
+      idToken: id_token,
       refreshToken: refresh_token,
       tokenExpiresAt: new Date(expiresAt).toISOString()
     });

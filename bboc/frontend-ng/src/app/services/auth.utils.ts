@@ -37,7 +37,4 @@ export const clearAuthStorage = () => {
   sessionStorage.removeItem('state');
   sessionStorage.removeItem('code_verifier');
   sessionStorage.removeItem('code_challenge');
-  sessionStorage.removeItem('id_token');
-  sessionStorage.removeItem('access_token_expires_at');
-  sessionStorage.removeItem('refresh_token');
 };
