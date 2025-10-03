@@ -1,0 +1,92 @@
+{
+  "autorun": false,
+  "autokill": true,
+  "terminals": [
+    {
+      "name": "Resource API",
+      "description": "/resource-api",
+      "icon": "database",
+      "color": "terminal.ansiMagenta",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/resource-api",
+      "command": "npm run dev",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": true
+    },
+    {
+      "name": "BFF backend",
+      "description": "/bff/backend",
+      "icon": "server-process",
+      "color": "terminal.ansiGreen",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/bff/backend",
+      "command": "npm run dev",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": false
+    },
+    {
+      "name": "BFF frontend",
+      "description": "/bff/frontend",
+      "icon": "browser",
+      "color": "terminal.ansiGreen",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/bff/frontend-ng",
+      "command": "ng serve",
+      "split": "BFF backend",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": false
+    },
+    {
+      "name": "TMB backend",
+      "description": "/tmb/backend",
+      "icon": "server-process",
+      "color": "terminal.ansiYellow",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/tmb/backend",
+      "command": "npm run dev",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": false
+    },
+    {
+      "name": "TMB frontend",
+      "description": "/tmb/frontend",
+      "icon": "browser",
+      "color": "terminal.ansiYellow",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/tmb/frontend-ng",
+      "command": "ng serve",
+      "split": "TMB backend",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": false
+    },
+    {
+      "name": "BBOC frontend",
+      "description": "/bboc/frontend",
+      "icon": "browser",
+      "color": "terminal.ansiRed",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/bboc/frontend-ng",
+      "command": "ng serve",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": false
+    },
+    {
+      "name": "BFF-HB frontend",
+      "description": "/bff-hb/frontend",
+      "icon": "symbol-structure",
+      "color": "terminal.ansiCyan",
+      "cwd": "/Users/kimmaida/Documents/Development/Architecture-Driven Auth/auth-architecture-ng/bff-hb/frontend-ng",
+      "command": "ng serve",
+      "recycle": false,
+      "open": true,
+      "focus": true,
+      "execute": false
+    }
+  ]
+}
