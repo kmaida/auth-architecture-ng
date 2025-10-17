@@ -4,12 +4,17 @@ import { environment } from '../../environments/environment';
 import { FusionAuthClient } from '@fusionauth/typescript-client';
 import { setupPKCE, clearAuthStorage } from './auth.utils';
 
+export interface AuthUser {
+  email: string;
+  [key: string]: unknown;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
   readonly loggedIn = signal(false);
   readonly userToken = signal<string | null>(null);
-  readonly userInfo = signal<unknown>(null);
+  readonly userInfo = signal<AuthUser | null>(null);
   readonly isLoading = signal(true);
 
   // Computed signals for derived state (if needed)
@@ -206,7 +211,7 @@ export class AuthService {
     this.scheduleTokenRefresh(expiresAt);
 
     const userInfo = await this.getUserInfo(access_token);
-    this.setUserInfo(userInfo);
+    this.setUserInfo(userInfo as AuthUser);
     this.setLoggedIn(true);
     this.setIsLoading(false);
 
@@ -247,7 +252,7 @@ export class AuthService {
     this.userToken.set(token);
   }
 
-  private setUserInfo(user: unknown) {
+  private setUserInfo(user: AuthUser | null) {
     this.userInfo.set(user);
   }
 
