@@ -102,24 +102,30 @@ export class AuthService {
 
   /**
    * Fetch user info from FusionAuth
-    * @param {string} accessToken - Access token to use for fetching user info
-    * @returns {Promise<object|null>}
-    * @throws {Error} - If access token is not available or user info fetch fails
+   * @param {string} accessToken - Access token to use for fetching user info
+   * @returns {Promise<AuthUser | null>}
+   * @throws {Error} - If access token is not available or user info fetch fails
    */
-  async getUserInfo(accessToken?: string): Promise<unknown> {
+  async getUserInfo(accessToken?: string): Promise<AuthUser | null> {
     this.setIsLoading(true);
     try {
       const token = accessToken ?? this.userToken();
       if (!token) throw new Error('No access token available');
-      const resUserInfo = await fetch(`${this.fusionAuthUrl}/oauth2/userinfo`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!resUserInfo) throw new Error('Failed to fetch user info');
-      return await resUserInfo.json();
+
+      const resUserInfo = await import('rxjs').then(({ firstValueFrom }) =>
+        firstValueFrom(
+          this.http.get<AuthUser>(
+            `${this.fusionAuthUrl}/oauth2/userinfo`,
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          )
+        )
+      );
+      return resUserInfo ?? null;
     } catch (error) {
       console.error('Error fetching user info:', error);
       return null;

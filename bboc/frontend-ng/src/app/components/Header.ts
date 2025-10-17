@@ -21,7 +21,6 @@ import { AuthService } from '../services/auth.service';
       <nav class="header-nav">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
         @if (loggedIn()) {
-          <a routerLink="/protected" routerLinkActive="active" class="nav-link">Protected</a>
           <a routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
           <a routerLink="/call-api" routerLinkActive="active" class="nav-link">Call API</a>
         }
