@@ -1,21 +1,21 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { filter, first } from 'rxjs/operators';
-import { firstValueFrom } from 'rxjs';
 
-export const authGuard: CanActivateFn = async () => {
+export const authGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  // Wait for isLoading$ to be false
-  await firstValueFrom(auth.isLoading$.pipe(filter(loading => !loading), first()));
+  if (auth.isLoading()) {
+    // Prevent navigation while loading
+    // Optionally, show a loading indicator in your app
+    return router.parseUrl('/');
+  }
 
-  // Check loggedIn$ reactively
-  const isLoggedIn = await firstValueFrom(auth.loggedIn$.pipe(first()));
-  if (isLoggedIn) {
+  if (auth.loggedIn()) {
     return true;
   }
-  router.navigateByUrl('/');
-  return false;
+
+  // Redirect to homepage if not logged in
+  return router.parseUrl('/');
 };
