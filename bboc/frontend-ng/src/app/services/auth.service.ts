@@ -1,5 +1,4 @@
-import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal, computed } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { FusionAuthClient } from '@fusionauth/typescript-client';
 import { setupPKCE, clearAuthStorage } from './auth.utils';
@@ -8,22 +7,22 @@ import { setupPKCE, clearAuthStorage } from './auth.utils';
 export class AuthService {
   readonly loggedIn = signal(false);
   readonly userToken = signal<string | null>(null);
-  readonly userInfo = signal<any>(null);
+  readonly userInfo = signal<unknown>(null);
   readonly isLoading = signal(true);
 
-  readonly isLoading$ = new BehaviorSubject<boolean>(true);
-  readonly loggedIn$ = new BehaviorSubject<boolean>(false);
-  readonly userToken$ = new BehaviorSubject<string | null>(null);
+  // Computed signals for derived state (if needed)
+  readonly isAuthenticated = computed(() => !!this.userToken());
+
   readonly fusionAuthUrl = environment.fusionAuthUrl;
   readonly frontendUrl = environment.frontendUrl;
   readonly clientId = environment.clientId;
   private readonly fusionAuthClient = new FusionAuthClient('', this.fusionAuthUrl);
 
   // Refresh token (stored in memory only; not exposed anywhere outside the auth service)
-  private readonly refreshTokenRef: { current: any } = { current: null };
+  private readonly refreshTokenRef: { current: unknown } = { current: null };
 
   // Proactive token refresh
-  private readonly refreshTimerRef: { current: any } = { current: null };
+  private readonly refreshTimerRef: { current: unknown } = { current: null };
   private readonly accessTokenExpiresAtRef: { current: number | null } = { current: null };
 
   async login() {
@@ -100,10 +99,10 @@ export class AuthService {
     * @returns {Promise<object|null>}
     * @throws {Error} - If access token is not available or user info fetch fails
    */
-  async getUserInfo(accessToken?: string): Promise<any> {
+  async getUserInfo(accessToken?: string): Promise<unknown> {
     this.setIsLoading(true);
     try {
-      const token = accessToken || this.userToken;
+      const token = accessToken ?? this.userToken();
       if (!token) throw new Error('No access token available');
       const resUserInfo = await fetch(`${this.fusionAuthUrl}/oauth2/userinfo`, {
         method: 'GET',
@@ -165,7 +164,7 @@ export class AuthService {
    */
   clearRefreshTimer() {
     if (this.refreshTimerRef && this.refreshTimerRef.current) {
-      clearTimeout(this.refreshTimerRef.current);
+      clearTimeout(this.refreshTimerRef.current as number);
       this.refreshTimerRef.current = null;
     }
   }
@@ -183,7 +182,7 @@ export class AuthService {
     // Refresh 1 minute before expiry, but never less than 0
     const refreshIn = Math.max(expiresAt - now - 60000, 0);
     this.refreshTimerRef.current = setTimeout(async () => {
-      const refreshToken = this.refreshTokenRef.current;
+      const refreshToken = this.refreshTokenRef.current as string | null;
       if (refreshToken) {
         await this.refreshAccessToken(refreshToken);
       }
@@ -238,22 +237,19 @@ export class AuthService {
 
   // --- Helper methods for user/session state ---
 
-  setIsLoading(loading: boolean) {
+  private setIsLoading(loading: boolean) {
     this.isLoading.set(loading);
-    this.isLoading$.next(loading);
   }
 
-  setUserToken(token: string | null) {
+  private setUserToken(token: string | null) {
     this.userToken.set(token);
-    this.userToken$.next(token);
   }
 
-  setUserInfo(user: any) {
+  private setUserInfo(user: unknown) {
     this.userInfo.set(user);
   }
 
-  setLoggedIn(value: boolean) {
+  private setLoggedIn(value: boolean) {
     this.loggedIn.set(value);
-    this.loggedIn$.next(value);
   }
 }
