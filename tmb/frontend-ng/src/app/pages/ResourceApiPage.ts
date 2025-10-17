@@ -1,8 +1,9 @@
 import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
+import { firstValueFrom } from 'rxjs';
 
 interface Recipe {
   name: string;
@@ -50,7 +51,7 @@ interface Recipe {
               </ul>
               <ul class="ingredients">
                 <li>{{ recipe()!.ingredients.protein }}</li>
-                @for (veg of recipe()!.ingredients.vegetables; track veg) {
+                @for (veg of recipe()!.ingredients.vegetables; track $index) {
                   <li>{{ veg }}</li>
                 }
                 <li>{{ recipe()!.ingredients.grain }}</li>
@@ -59,7 +60,7 @@ interface Recipe {
               </ul>
             </div>
             <ol class="instructions">
-              @for (step of recipe()!.instructions; track step) {
+              @for (step of recipe()!.instructions; track $index) {
                 <li>{{ step }}</li>
               }
             </ol>
@@ -91,8 +92,9 @@ interface Recipe {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourceApiPage implements OnInit {
-  protected readonly recipe = signal<any>(null);
-  protected readonly error = signal<any>(null);
+  private readonly http = inject(HttpClient);
+  protected readonly recipe = signal<Recipe | null>(null);
+  protected readonly error = signal<unknown>(null);
   protected readonly loading = signal(false);
   protected readonly resourceApiUrl = environment.resourceApiUrl ?? 'http://resource-api.local:5001';
   private readonly auth = inject(AuthService);
@@ -101,29 +103,41 @@ export class ResourceApiPage implements OnInit {
     this.fetchRecipe();
   }
 
-  async fetchRecipe() {
+  fetchRecipe() {
     this.loading.set(true);
     this.error.set(null);
-    try {
-      // Fetch the latest access token from the backend
-      const accessToken = this.auth.getAccessToken();
-      if (accessToken) {
-        // Make request to the resource API with the access token
-        const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
+
+    // Get access token from backend
+    this.auth.getAccessToken().subscribe({
+      next: (tokenRes) => {
+        const accessToken = tokenRes?.at;
+        if (!accessToken) {
+          this.error.set('No access token received');
+          this.recipe.set(null);
+          this.loading.set(false);
+          return;
+        }
+
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
         });
-        if (!res.ok) throw new Error('Failed to fetch resource API data');
-        const result = await res.json();
-        this.recipe.set(result);
+
+        this.http.get<Recipe>(`${this.resourceApiUrl}/api/recipe`, { headers })
+          .subscribe({
+            next: (result) => this.recipe.set(result),
+            error: (err) => {
+              this.error.set(err);
+              this.recipe.set(null);
+            },
+            complete: () => this.loading.set(false)
+          });
+      },
+      error: (err) => {
+        this.error.set(err);
+        this.recipe.set(null);
+        this.loading.set(false);
       }
-    } catch (err: unknown) {
-      this.error.set(err);
-      this.recipe.set(null);
-    } finally {
-      this.loading.set(false);
-    }
+    });
   }
 }

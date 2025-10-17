@@ -49,7 +49,7 @@ interface Recipe {
               </ul>
               <ul class="ingredients">
                 <li>{{ recipe()!.ingredients.protein }}</li>
-                @for (veg of recipe()!.ingredients.vegetables; track veg) {
+                @for (veg of recipe()!.ingredients.vegetables; track $index) {
                   <li>{{ veg }}</li>
                 }
                 <li>{{ recipe()!.ingredients.grain }}</li>
@@ -58,7 +58,7 @@ interface Recipe {
               </ul>
             </div>
             <ol class="instructions">
-              @for (step of recipe()!.instructions; track step) {
+              @for (step of recipe()!.instructions; track $index) {
                 <li>{{ step }}</li>
               }
             </ol>
