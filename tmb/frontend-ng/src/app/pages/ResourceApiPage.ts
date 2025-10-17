@@ -90,7 +90,7 @@ interface Recipe {
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResourceApiPage {
+export class ResourceApiPage implements OnInit {
   protected readonly recipe = signal<any>(null);
   protected readonly error = signal<any>(null);
   protected readonly loading = signal(false);
@@ -106,7 +106,7 @@ export class ResourceApiPage {
     this.error.set(null);
     try {
       // Fetch the latest access token from the backend
-      const accessToken = await this.auth.getAccessToken();
+      const accessToken = this.auth.getAccessToken();
       if (accessToken) {
         // Make request to the resource API with the access token
         const res = await fetch(`${this.resourceApiUrl}/api/recipe`, {
