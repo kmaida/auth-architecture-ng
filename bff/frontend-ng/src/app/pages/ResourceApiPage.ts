@@ -1,10 +1,27 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+
+interface Recipe {
+  name: string;
+  cuisine: string;
+  difficulty: string;
+  cookingTime: string;
+  servings: number;
+  ingredients: {
+    protein: string;
+    vegetables: string[];
+    grain: string;
+    sauce: string;
+    garnish: string;
+  };
+  instructions: string[];
+  tips: string;
+}
 
 @Component({
   selector: 'app-resource-api-page',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <section class="resource-api-page">
@@ -22,30 +39,30 @@ import { environment } from '../../environments/environment';
       @if (!error()) {
         @if (recipe()) {
           <div class="recipe">
-            <h2>{{ recipe().name }}</h2>
+            <h2>{{ recipe()!.name }}</h2>
             <div class="recipe-lists">
               <ul class="details">
-                <li><strong>Cuisine:</strong> {{ recipe().cuisine }}</li>
-                <li><strong>Difficulty:</strong> {{ recipe().difficulty }}</li>
-                <li><strong>Cooking Time:</strong> {{ recipe().cookingTime }}</li>
-                <li><strong>Servings:</strong> {{ recipe().servings }}</li>
+                <li><strong>Cuisine:</strong> {{ recipe()!.cuisine }}</li>
+                <li><strong>Difficulty:</strong> {{ recipe()!.difficulty }}</li>
+                <li><strong>Cooking Time:</strong> {{ recipe()!.cookingTime }}</li>
+                <li><strong>Servings:</strong> {{ recipe()!.servings }}</li>
               </ul>
               <ul class="ingredients">
-                <li>{{ recipe()?.ingredients?.protein ?? '' }}</li>
-                @for (veg of recipe()?.ingredients?.vegetables ?? []; track veg) {
+                <li>{{ recipe()!.ingredients.protein }}</li>
+                @for (veg of recipe()!.ingredients.vegetables; track veg) {
                   <li>{{ veg }}</li>
                 }
-                <li>{{ recipe()?.ingredients?.grain ?? '' }}</li>
-                <li>{{ recipe()?.ingredients?.sauce ?? '' }}</li>
-                <li>{{ recipe()?.ingredients?.garnish ?? '' }}</li>
+                <li>{{ recipe()!.ingredients.grain }}</li>
+                <li>{{ recipe()!.ingredients.sauce }}</li>
+                <li>{{ recipe()!.ingredients.garnish }}</li>
               </ul>
             </div>
             <ol class="instructions">
-              @for (step of recipe()?.instructions ?? []; track step) {
+              @for (step of recipe()!.instructions; track step) {
                 <li>{{ step }}</li>
               }
             </ol>
-            <p class="tips"><em>{{ recipe().tips }}</em></p>
+            <p class="tips"><em>{{ recipe()!.tips }}</em></p>
           </div>
         } @else {
           @if (!loading()) {
@@ -57,7 +74,7 @@ import { environment } from '../../environments/environment';
       <h2>Raw Recipe Response</h2>
 
       @if (error()) {
-        <pre class="error">Error: {{ error()?.message }}</pre>
+        <pre class="error">Error: {{ error() }}</pre>
       } @else {
         @if (recipe()) {
           <pre class="json">{{ recipe() | json }}</pre>
@@ -69,33 +86,32 @@ import { environment } from '../../environments/environment';
       }
     </section>
   `,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResourceApiPage {
-  protected readonly recipe = signal<any>(null);
-  protected readonly error = signal<any>(null);
+export class ResourceApiPage implements OnInit {
+  private readonly http = inject(HttpClient);
+  protected readonly recipe = signal<Recipe | null>(null);
+  protected readonly error = signal<unknown>(null);
   protected readonly loading = signal(false);
-  protected readonly apiUrl = environment.apiUrl ?? '';
+  protected readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
 
   ngOnInit() {
     this.fetchRecipe();
   }
 
-  async fetchRecipe() {
+  fetchRecipe() {
     this.loading.set(true);
     this.error.set(null);
-    try {
-      const res = await fetch(`${this.apiUrl}/resource/api/recipe`, {
-        credentials: 'include',
-      });
-      if (!res.ok) throw new Error('Failed to fetch resource API data');
-      const result = await res.json();
-      this.recipe.set(result);
-    } catch (err: unknown) {
-      this.error.set(err);
-      this.recipe.set(null);
-    } finally {
-      this.loading.set(false);
-    }
+    this.http.get<Recipe>(`${this.apiUrl}/resource/api/recipe`, {
+      credentials: 'include'
+    }).subscribe({
+      next: (result) => this.recipe.set(result),
+      error: (err) => {
+        this.error.set(err);
+        this.recipe.set(null);
+      },
+      complete: () => this.loading.set(false)
+    });
   }
 }

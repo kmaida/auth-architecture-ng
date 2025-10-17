@@ -38,7 +38,7 @@ export class ProfilePage {
   private fetchUserInfo() {
     this.error.set(null);
     this.http.get<unknown>(`${this.apiUrl}/auth/userinfo`, {
-      withCredentials: true
+      credentials: 'include'
     }).subscribe({
       next: (json) => this.userinfo.set(json),
       error: (err) => {

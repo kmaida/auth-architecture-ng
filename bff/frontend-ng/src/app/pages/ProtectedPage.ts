@@ -39,7 +39,7 @@ export class ProtectedPage {
   private fetchProtectedData() {
     this.error.set(null);
     this.http.get<{ message: string }>(`${this.apiUrl}/api/protected-data`, {
-      withCredentials: true
+      credentials: 'include'
     }).subscribe({
       next: (json) => this.data.set(json),
       error: (err) => {
