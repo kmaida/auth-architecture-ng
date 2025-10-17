@@ -110,7 +110,9 @@ Here are all the steps for authentication in this TMB example in explicit detail
 
 ## How TMB API Authorization Works
 
-When a user requests access to secure data (either from a local backend API or external resource server), the frontend requests the user's access token from the backend in order to authorize access to the API (resource server). The frontend should protect routes that require authentication by checking the session before permitting navigation to the page that will call the secure API. Frontend checks like this improve the user experience.
+When a user requests access to secure data from a local backend API, the session ID cookie is used to look up and validate the user's access token before returning data. 
+
+For cross-origin API requests, the frontend attaches the cookie to a backend request for the access token. The frontend then uses the access token as a bearer token to authorize access to the external API. The frontend should protect routes that require authentication by checking the session before permitting navigation to the page that will call the secure API. Frontend checks like this improve the user experience.
 
 1.  Authenticated user navigates to a protected frontend route that calls a secure API
 

@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
   template: `
     <section class="profile-page">
       <h1>User Profile</h1>
-      <p>This page makes a secured <code>GET</code> request to the backend auth API to fetch updated profile info. The user must be logged in and have a valid access token in an <code>httpOnly</code> cookie in order to retrieve their user info. The returned data is a JSON object.</p>
+      <p>This page makes a secured <code>GET</code> request to the backend auth API to fetch updated profile info. The user must be logged in and have a valid session ID in an <code>httpOnly</code> cookie in order to retrieve their user info. The returned data is a JSON object.</p>
       @if (error()) {
         <pre class="error">Error: {{ error()?.message }}</pre>
       } @else {
