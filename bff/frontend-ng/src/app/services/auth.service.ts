@@ -1,16 +1,19 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+
+export interface AuthUser {
+  email: string;
+  [key: string]: unknown;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   readonly loggedIn = signal(false);
-  readonly userInfo = signal<any>(null);
+  readonly userInfo = signal<AuthUser | null>(null);
   readonly isLoading = signal(true);
   private readonly apiUrl = environment.apiUrl ?? '';
-
-  readonly isLoading$ = new BehaviorSubject<boolean>(true);
-  readonly loggedIn$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.checkSession();
@@ -24,29 +27,30 @@ export class AuthService {
     window.location.href = `${this.apiUrl}/auth/logout`;
   }
 
-  async checkSession() {
+  checkSession(): void {
     this.isLoading.set(true);
-    this.isLoading$.next(true);
-    try {
-      const response = await fetch(`${this.apiUrl}/auth/checksession`, {
-        credentials: 'include',
+    this.http
+      .get<{ loggedIn: boolean; user?: AuthUser }>(
+        `${this.apiUrl}/auth/checksession`,
+        {
+          withCredentials: true,
+          headers: { 'Accept': 'application/json' }
+        }
+      )
+      .subscribe({
+        next: data => {
+          this.loggedIn.set(data?.loggedIn ?? false);
+          this.userInfo.set(data?.loggedIn ? data?.user ?? null : null);
+        },
+        error: error => {
+          // eslint-disable-next-line no-console
+          console.error('Error checking session:', error);
+          this.loggedIn.set(false);
+          this.userInfo.set(null);
+        },
+        complete: () => {
+          this.isLoading.set(false);
+        }
       });
-      const data = await response.json();
-      this.loggedIn.set(data.loggedIn);
-      this.loggedIn$.next(data.loggedIn);
-      if (data.loggedIn) {
-        this.userInfo.set(data.user ?? null);
-      } else {
-        this.userInfo.set(null);
-      }
-    } catch (error) {
-      console.error('Error checking session:', error);
-      this.loggedIn.set(false);
-      this.loggedIn$.next(false);
-      this.userInfo.set(null);
-    } finally {
-      this.isLoading.set(false);
-      this.isLoading$.next(false);
-    }
   }
 }
