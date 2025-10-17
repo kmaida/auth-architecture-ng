@@ -1,10 +1,12 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { FusionAuthClient } from '@fusionauth/typescript-client';
 import { setupPKCE, clearAuthStorage } from './auth.utils';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   readonly loggedIn = signal(false);
   readonly userToken = signal<string | null>(null);
   readonly userInfo = signal<unknown>(null);
