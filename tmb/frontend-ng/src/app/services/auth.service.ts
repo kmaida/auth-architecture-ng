@@ -2,11 +2,16 @@ import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
+export interface AuthUser {
+  email: string;
+  [key: string]: unknown;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
   readonly loggedIn = signal(false);
-  readonly userInfo = signal<unknown>(null);
+  readonly userInfo = signal<AuthUser | null>(null);
   readonly isLoading = signal(true);
 
   private readonly apiUrl = environment.apiUrl ?? 'http://localhost:4001';
@@ -26,7 +31,7 @@ export class AuthService {
   checkSession(): void {
     this.isLoading.set(true);
     this.http
-      .get<{ loggedIn: boolean; user?: unknown }>(
+      .get<{ loggedIn: boolean; user?: AuthUser }>(
         `${this.apiUrl}/auth/checksession`,
         {
           withCredentials: true,
