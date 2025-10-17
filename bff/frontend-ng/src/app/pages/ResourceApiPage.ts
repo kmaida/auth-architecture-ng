@@ -19,8 +19,8 @@ import { environment } from '../../environments/environment';
         {{ loading() ? 'Fetching Recipe...' : 'Get New Recipe' }}
       </button>
 
-      <ng-container *ngIf="!error()">
-        <ng-container *ngIf="recipe(); else unableBlock">
+      @if (!error()) {
+        @if (recipe()) {
           <div class="recipe">
             <h2>{{ recipe().name }}</h2>
             <div class="recipe-lists">
@@ -31,45 +31,42 @@ import { environment } from '../../environments/environment';
                 <li><strong>Servings:</strong> {{ recipe().servings }}</li>
               </ul>
               <ul class="ingredients">
-                <li>{{ recipe().ingredients.protein }}</li>
-                <ng-container *ngFor="let veg of recipe().ingredients.vegetables">
+                <li>{{ recipe()?.ingredients?.protein ?? '' }}</li>
+                @for (veg of recipe()?.ingredients?.vegetables ?? []; track veg) {
                   <li>{{ veg }}</li>
-                </ng-container>
-                <li>{{ recipe().ingredients.grain }}</li>
-                <li>{{ recipe().ingredients.sauce }}</li>
-                <li>{{ recipe().ingredients.garnish }}</li>
+                }
+                <li>{{ recipe()?.ingredients?.grain ?? '' }}</li>
+                <li>{{ recipe()?.ingredients?.sauce ?? '' }}</li>
+                <li>{{ recipe()?.ingredients?.garnish ?? '' }}</li>
               </ul>
             </div>
             <ol class="instructions">
-              <ng-container *ngFor="let step of recipe().instructions; let i = index">
+              @for (step of recipe()?.instructions ?? []; track step) {
                 <li>{{ step }}</li>
-              </ng-container>
+              }
             </ol>
             <p class="tips"><em>{{ recipe().tips }}</em></p>
           </div>
-        </ng-container>
-        <ng-template #unableBlock>
-          <ng-container *ngIf="!loading()">
+        } @else {
+          @if (!loading()) {
             <p>Unable to fetch recipe (see output below)</p>
-          </ng-container>
-        </ng-template>
-      </ng-container>
+          }
+        }
+      }
 
       <h2>Raw Recipe Response</h2>
 
-      <ng-container *ngIf="error()">
+      @if (error()) {
         <pre class="error">Error: {{ error()?.message }}</pre>
-      </ng-container>
-      <ng-container *ngIf="!error()">
-        <ng-container *ngIf="recipe(); else noRecipeBlock">
+      } @else {
+        @if (recipe()) {
           <pre class="json">{{ recipe() | json }}</pre>
-        </ng-container>
-        <ng-template #noRecipeBlock>
-          <ng-container *ngIf="!loading()">
+        } @else {
+          @if (!loading()) {
             <pre>Click the button to fetch a recipe...</pre>
-          </ng-container>
-        </ng-template>
-      </ng-container>
+          }
+        }
+      }
     </section>
   `,
   styles: []
