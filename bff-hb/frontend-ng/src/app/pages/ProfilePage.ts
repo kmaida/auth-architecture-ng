@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FusionAuthService, UserInfo } from '@fusionauth/angular-sdk';
 import { environment } from '../../environments/environment';
@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
   template: `
     <section class="profile-page">
       <h1>User Profile</h1>
-      <p>This page uses the <code>angular-sdk</code> and subscribes to a profile observable. The returned data is a JSON object.</p>
+      <p>This page uses the <code>angular-sdk</code> and subscribes to a user info observable. The returned data is a JSON object.</p>
       @if (error()) {
         <pre class="error">Error: {{ error()?.message }}</pre>
       } @else {
@@ -24,7 +24,7 @@ import { environment } from '../../environments/environment';
   `,
   styles: []
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit{
   private readonly auth = inject(FusionAuthService);
   readonly userInfo$ = this.auth.getUserInfoObservable();
   readonly userInfo = signal<UserInfo | null>(null);

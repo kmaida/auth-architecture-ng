@@ -1,5 +1,23 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+interface Recipe {
+  name: string;
+  cuisine: string;
+  difficulty: string;
+  cookingTime: string;
+  servings: number;
+  ingredients: {
+    protein: string;
+    vegetables: string[];
+    grain: string;
+    sauce: string;
+    garnish: string;
+  };
+  instructions: string[];
+  tips: string;
+}
 
 @Component({
   selector: 'app-resource-api-page',
@@ -18,85 +36,79 @@ import { CommonModule } from '@angular/common';
         {{ loading() ? 'Fetching Recipe...' : 'Get New Recipe' }}
       </button>
 
-      <ng-container *ngIf="!error()">
-        <ng-container *ngIf="recipe(); else unableBlock">
+      @if (!error()) {
+        @if (recipe()) {
           <div class="recipe">
-            <h2>{{ recipe().name }}</h2>
+            <h2>{{ recipe()!.name }}</h2>
             <div class="recipe-lists">
               <ul class="details">
-                <li><strong>Cuisine:</strong> {{ recipe().cuisine }}</li>
-                <li><strong>Difficulty:</strong> {{ recipe().difficulty }}</li>
-                <li><strong>Cooking Time:</strong> {{ recipe().cookingTime }}</li>
-                <li><strong>Servings:</strong> {{ recipe().servings }}</li>
+                <li><strong>Cuisine:</strong> {{ recipe()!.cuisine }}</li>
+                <li><strong>Difficulty:</strong> {{ recipe()!.difficulty }}</li>
+                <li><strong>Cooking Time:</strong> {{ recipe()!.cookingTime }}</li>
+                <li><strong>Servings:</strong> {{ recipe()!.servings }}</li>
               </ul>
               <ul class="ingredients">
-                <li>{{ recipe().ingredients.protein }}</li>
-                <ng-container *ngFor="let veg of recipe().ingredients.vegetables">
+                <li>{{ recipe()!.ingredients.protein }}</li>
+                @for (veg of recipe()!.ingredients.vegetables; track $index) {
                   <li>{{ veg }}</li>
-                </ng-container>
-                <li>{{ recipe().ingredients.grain }}</li>
-                <li>{{ recipe().ingredients.sauce }}</li>
-                <li>{{ recipe().ingredients.garnish }}</li>
+                }
+                <li>{{ recipe()!.ingredients.grain }}</li>
+                <li>{{ recipe()!.ingredients.sauce }}</li>
+                <li>{{ recipe()!.ingredients.garnish }}</li>
               </ul>
             </div>
             <ol class="instructions">
-              <ng-container *ngFor="let step of recipe().instructions; let i = index">
+              @for (step of recipe()!.instructions; track $index) {
                 <li>{{ step }}</li>
-              </ng-container>
+              }
             </ol>
-            <p class="tips"><em>{{ recipe().tips }}</em></p>
+            <p class="tips"><em>{{ recipe()!.tips }}</em></p>
           </div>
-        </ng-container>
-        <ng-template #unableBlock>
-          <ng-container *ngIf="!loading()">
+        } @else {
+          @if (!loading()) {
             <p>Unable to fetch recipe (see output below)</p>
-          </ng-container>
-        </ng-template>
-      </ng-container>
+          }
+        }
+      }
 
       <h2>Raw Recipe Response</h2>
 
-      <ng-container *ngIf="error()">
-        <pre class="error">Error: {{ error()?.message }}</pre>
-      </ng-container>
-      <ng-container *ngIf="!error()">
-        <ng-container *ngIf="recipe(); else noRecipeBlock">
+      @if (error()) {
+        <pre class="error">Error: {{ error() }}</pre>
+      } @else {
+        @if (recipe()) {
           <pre class="json">{{ recipe() | json }}</pre>
-        </ng-container>
-        <ng-template #noRecipeBlock>
-          <ng-container *ngIf="!loading()">
+        } @else {
+          @if (!loading()) {
             <pre>Click the button to fetch a recipe...</pre>
-          </ng-container>
-        </ng-template>
-      </ng-container>
+          }
+        }
+      }
     </section>
   `,
   styles: []
 })
-export class ResourceApiPage {
-  protected readonly recipe = signal<any>(null);
-  protected readonly error = signal<any>(null);
+export class ResourceApiPage implements OnInit{
+  private readonly http = inject(HttpClient);
+  protected readonly recipe = signal<Recipe | null>(null);
+  protected readonly error = signal<unknown>(null);
   protected readonly loading = signal(false);
 
   ngOnInit() {
     this.fetchRecipe();
   }
 
-  async fetchRecipe() {
+  fetchRecipe() {
     this.loading.set(true);
     this.error.set(null);
-    try {
-      const res = await fetch(`/api/recipe`, {
-        credentials: 'include'
-      });
-      if (!res.ok) throw new Error('Failed to fetch resource API data');
-      const result = await res.json();
-      this.recipe.set(result);
-    } catch (err: unknown) {
-      this.error.set(err);
-      this.recipe.set(null);
-    } finally {
-      this.loading.set(false);
-    }
+    // Uses a proxy to call the external API as a same-domain request(see proxy.conf.json)
+    this.http.get<Recipe>(`/api/recipe`, { withCredentials: true }).subscribe({
+      next: (result) => this.recipe.set(result),
+      error: (err) => {
+        this.error.set(err);
+        this.recipe.set(null);
+      },
+      complete: () => this.loading.set(false),
+    });
   }
 }

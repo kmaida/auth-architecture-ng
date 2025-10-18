@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FusionAuthService, UserInfo } from '@fusionauth/angular-sdk';
@@ -21,32 +21,33 @@ import { Subscription } from 'rxjs';
       </a>
       <nav class="header-nav">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
-        <a *ngIf="isLoggedIn" routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
-        <a *ngIf="isLoggedIn" routerLink="/call-api" routerLinkActive="active" class="nav-link">Call API</a>
+        @if (loggedIn) {
+          <a routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
+          <a routerLink="/call-api" routerLinkActive="active" class="nav-link">Call API</a>
+        }
       </nav>
-      <ng-container *ngIf="isLoggedIn; else loginBtn">
+      @if (loggedIn) {
         <div class="header-auth">
           <p class="header-email">{{ userInfo?.email }}</p>
           <button class="btn btn-logout" (click)="logout()">Log Out</button>
         </div>
-      </ng-container>
-      <ng-template #loginBtn>
+      } @else {
         <button class="btn btn-login" (click)="login()">Log In</button>
-      </ng-template>
+      }
     </header>
   `,
   styles: [],
 })
-export class Header {
+export class Header implements OnInit, OnDestroy {
   private auth: FusionAuthService = inject(FusionAuthService);
 
-  isLoggedIn: boolean = this.auth.isLoggedIn();
+  loggedIn: boolean = this.auth.isLoggedIn();
   userInfo: UserInfo | null = null;
   isGettingUserInfo: boolean = false;
   subscription?: Subscription;
 
   ngOnInit(): void {
-    if (this.isLoggedIn) {
+    if (this.loggedIn) {
       this.subscription = this.auth
         .getUserInfoObservable({
           onBegin: () => (this.isGettingUserInfo = true),
