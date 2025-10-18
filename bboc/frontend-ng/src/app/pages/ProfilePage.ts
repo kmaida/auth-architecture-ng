@@ -34,27 +34,23 @@ export class ProfilePage implements OnInit {
     this.fetchUserInfo();
   }
 
-  async fetchUserInfo() {
-    try {
-      // Fetch the latest access token from the backend
-      const accessToken = this.auth.userToken();
-      if (accessToken) {
-        // Fetch user info using the access token
-        this.http.get<unknown>(`${this.auth.fusionAuthUrl}/oauth2/userinfo`, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-          }
-        }).subscribe({
-          next: (data) => this.userinfo.set(data),
-          error: (err) => {
-            console.error('Error fetching user info:', err);
-            this.error.set(err);
-          }
-        });
-      }
-    } catch (err: any) {
-      this.error.set(err);
+  fetchUserInfo() {
+    // Fetch the latest access token from the backend
+    const accessToken = this.auth.userToken();
+    if (accessToken) {
+      // Fetch user info using the access token
+      this.http.get<unknown>(`${this.auth.fusionAuthUrl}/oauth2/userinfo`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      }).subscribe({
+        next: (data) => this.userinfo.set(data),
+        error: (err) => {
+          console.error('Error fetching user info:', err);
+          this.error.set(err);
+        }
+      });
     }
   }
 }
