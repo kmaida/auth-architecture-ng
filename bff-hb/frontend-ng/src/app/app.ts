@@ -1,4 +1,4 @@
-import { Component, inject, effect } from '@angular/core';
+import { Component, inject, effect, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -16,7 +16,8 @@ import { FusionAuthService } from '@fusionauth/angular-sdk';
       </ng-container>
     </div>
     <app-footer />
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App {
   private fusionAuthService: FusionAuthService = inject(FusionAuthService);

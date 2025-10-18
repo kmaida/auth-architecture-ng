@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'home-page',
@@ -39,5 +39,6 @@ import {Component} from '@angular/core';
     <h2>How BFF-HB Authentication Works</h2>
     <p>See the <a href="https://github.com/kmaida/auth-architecture-ng/blob/main/bff-hb/README.md#how-bff-hb-authentication-works" target="_blank">GitHub README</a> for a detailed explanation of this BFF-HB pattern implementation.</p>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage { /* Your component code goes here */ }

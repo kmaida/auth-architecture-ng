@@ -1,4 +1,4 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FusionAuthService, UserInfo } from '@fusionauth/angular-sdk';
 import { environment } from '../../environments/environment';
@@ -22,7 +22,8 @@ import { environment } from '../../environments/environment';
       }
     </section>
   `,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfilePage implements OnInit{
   private readonly auth = inject(FusionAuthService);

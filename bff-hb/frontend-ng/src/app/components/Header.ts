@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FusionAuthService, UserInfo } from '@fusionauth/angular-sdk';
@@ -37,6 +37,7 @@ import { Subscription } from 'rxjs';
     </header>
   `,
   styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Header implements OnInit, OnDestroy {
   private auth: FusionAuthService = inject(FusionAuthService);
