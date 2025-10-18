@@ -4,7 +4,7 @@ import pkceChallenge from 'pkce-challenge';
  * Generate a random state value for OAuth
   * @returns {string} - A random string to be used as state
  */
-export const generateStateValue = () => {
+export const generateStateValue = (): string => {
   return Array(6).fill(0).map(() => Math.random().toString(36).substring(2, 15)).join('');
 };
 
