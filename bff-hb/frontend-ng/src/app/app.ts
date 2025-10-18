@@ -21,13 +21,13 @@ import { FusionAuthService } from '@fusionauth/angular-sdk';
 })
 export class App {
   private fusionAuthService: FusionAuthService = inject(FusionAuthService);
-  isLoggedIn: boolean = this.fusionAuthService.isLoggedIn();
+  loggedIn: boolean = this.fusionAuthService.isLoggedIn();
 
   constructor() {
     // Add body class for authentication state reactively
     effect(() => {
-      document.body.classList.toggle('logged-in', this.isLoggedIn);
-      document.body.classList.toggle('logged-out', !this.isLoggedIn);
+      document.body.classList.toggle('logged-in', this.loggedIn);
+      document.body.classList.toggle('logged-out', !this.loggedIn);
     });
   }
 }

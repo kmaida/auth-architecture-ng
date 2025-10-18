@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -24,9 +24,10 @@ import { environment } from '../../environments/environment';
       }
     </section>
   `,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProtectedPage {
+export class ProtectedPage implements OnInit {
   private readonly http = inject(HttpClient);
   protected readonly data = signal<{ message: string } | null>(null);
   protected readonly error = signal<unknown>(null);
