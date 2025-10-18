@@ -1,4 +1,4 @@
-import { Component, signal, effect, inject, OnInit } from '@angular/core';
+import { Component, signal, effect, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,8 @@ import { CommonModule } from '@angular/common';
       }
     </section>
   `,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfilePage implements OnInit {
   private readonly http = inject(HttpClient);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -7,17 +7,15 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-login-callback',
   standalone: true,
   imports: [CommonModule],
-  template: ``
+  template: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginCallback implements OnInit {
   error: string | null = null;
   loading = true;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   async ngOnInit() {
     const params = this.route.snapshot.queryParams;

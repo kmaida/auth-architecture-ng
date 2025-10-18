@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -7,15 +7,13 @@ import { AuthService } from '../services/auth.service';
   selector: 'app-logout-callback',
   standalone: true,
   imports: [CommonModule],
-  template: ``
+  template: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoutCallback implements OnInit {
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
   error: string | null = null;
-
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) {}
 
   async ngOnInit() {
     try {

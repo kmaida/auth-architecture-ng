@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'home-page',
+  selector: 'app-home-page',
   template: `
     <h1 class="hero-title">Browser-based OAuth 2.0 Client</h1>
     <p class="hero-subtitle">Serverless Frontend Auth Architecture Demo</p>
@@ -39,5 +39,6 @@ import {Component} from '@angular/core';
     <h2>How BBOC Authentication Works</h2>
     <p>See the <a href="https://github.com/kmaida/auth-architecture-ng/blob/main/bboc/README.md#how-bboc-authentication-works" target="_blank">GitHub README</a> for a detailed explanation of this BBOC pattern implementation.</p>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage { /* Your component code goes here */ }
