@@ -1,7 +1,7 @@
-import { Component, signal, effect, inject } from '@angular/core';
+import { Component, signal, effect, inject, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-profile-page',
@@ -24,7 +24,8 @@ import { environment } from '../../environments/environment';
   `,
   styles: []
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
+  private readonly http = inject(HttpClient);
   readonly userinfo = signal<any>(null);
   readonly error = signal<Error | null>(null);
   private readonly auth = inject(AuthService);
@@ -39,15 +40,18 @@ export class ProfilePage {
       const accessToken = this.auth.userToken();
       if (accessToken) {
         // Fetch user info using the access token
-        const userInfo = await fetch(`${this.auth.fusionAuthUrl}/oauth2/userinfo`, {
+        this.http.get<unknown>(`${this.auth.fusionAuthUrl}/oauth2/userinfo`, {
           headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
           }
+        }).subscribe({
+          next: (data) => this.userinfo.set(data),
+          error: (err) => {
+            console.error('Error fetching user info:', err);
+            this.error.set(err);
+          }
         });
-        if (!userInfo.ok) throw new Error('Failed to fetch user info');
-        const data = await userInfo.json();
-        this.userinfo.set(data);
       }
     } catch (err: any) {
       this.error.set(err);
